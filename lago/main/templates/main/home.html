@@ -1,0 +1,63 @@
+{%  extends 'main/base.html' %}
+
+{% block title %}
+Home | LAGO
+{% endblock %}
+
+{% block heading %}
+    <br><br>
+    <b style="font-size:73px;font-family:'Inter', sans-serif;"><b>Lab Manual <br> Maker</b></b>
+{% endblock %}
+
+{% block content %}
+  <br>
+  <p style="font-size:20px;color:White;text-align:justify;font-family:'Inter', 
+    sans-serif;text-shadow: 1px 1px 4px #000000"> 
+      A new technology in laboratory manual making <br>
+      in the Technological Institute of the  Philippines <br>
+      created by the web designers of the Computer <br>
+      Engineering.<p>
+{% endblock %}
+
+{% block heading2 %}
+    <br>
+    <h1 style="font-size:50px;color:White;text-align:center;font-family:'Inter', 
+    sans-serif;text-shadow: 1px 1px 4px #000000"><br><br><b>Sign in</b1></h1>
+{% endblock %}
+
+{% block content2 %}
+  <form>
+    <h1 style="font-size:20px;color:White;text-align:left;font-family:'Inter', 
+    sans-serif;text-shadow: 1px 1px 4px #000000"><b>TIP Email Address</b></h1>
+
+    <input 
+      type="email" 
+      id="email" 
+      name="email" 
+      placeholder="Email" 
+      autofocus="" 
+      value="" 
+      style="width:500px;height:60px;font-size:25px;font-family:'Inter', sans-serif"><br><br>
+
+    <h1 style="font-size:20px;color:White;text-align:left;font-family:'Inter', 
+    sans-serif;text-shadow: 1px 1px 4px #000000"><b>Password</b></h1>
+
+    <input 
+      type="password" 
+      id="password" 
+      name="password" 
+      placeholder="Password" 
+      value="" 
+      style="width:500px;height:60px;font-size:25px;font-family:'Inter', sans-serif"><br><br><br>
+
+    <input 
+      type="button" 
+      id="btnSignIn"
+      value="Sign in"
+      onclick="location.href='{% url 'TestDocument' %}'"
+      style="width:200px;height:60px;font-size:25px;font-family:'Inter', 
+      sans-serif;"><br><br>
+    
+    <a href="{% url 'register' %}">Don't have an account?</a>
+  </form>
+{% endblock %}
