@@ -1,0 +1,43 @@
+{%  extends 'main/base2x2bg.html' %}
+
+{% block title %}
+LAGO
+{% endblock %}
+
+{% block heading %}
+    <br><br>
+    <b style="font-size:73px;font-family:'Inter', sans-serif;"><b>Lab Manual <br> Maker</b></b>
+{% endblock %}
+
+{% block content %}
+  <br>
+  <p style="font-size:20px;color:White;text-align:justify;font-family:'Inter', 
+    sans-serif;text-shadow: 1px 1px 4px #000000"> 
+      A new technology in laboratory manual making <br>
+      in the Technological Institute of the  Philippines <br>
+      created by the web designers of the Computer <br>
+      Engineering.<p>
+{% endblock %}
+
+{% block heading2 %}
+    <br>
+    <img src="https://cdn.discordapp.com/attachments/1001950406626254926/1029429368667246655/unknown.png" 
+      style= "float:right"width="140" height="85">
+    <h1 style="font-size:50px;color:White;text-align:center;font-family:'Inter', 
+    sans-serif;text-shadow: 1px 1px 4px #000000"><br><br><b>Sign in</b1></h1>
+{% endblock %}
+
+{% block content2 %}
+{% load crispy_forms_tags %}
+
+<!--Login--> 
+<div class="container py-5">
+  <form method="POST" class="loginfrm ">
+    {% csrf_token %}
+    {{ login_form|crispy }}
+    <button class="btn btn-warning" type="submit" style="font-size:25px"><b>Sign In</b></button>
+  </form><br>
+  <a href="{% url 'downloadTemp' %}">Forgot Password?</a><br>
+  <a href="{% url 'signup' %}">Don't have an account?</a>
+</div>
+{% endblock %}

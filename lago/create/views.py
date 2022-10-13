@@ -6,13 +6,13 @@ from io import BytesIO
 import docx
 
 
-def TestDocument(request):
+def downloadTemp(request):
 
     document = Document()
     docx_title = "LAGO-test.docx"
 
     #Create Table
-
+    # -----------------------------
     table = document.add_table(rows=26, cols=2)
     table.style = 'Table Grid'
     style = document.styles['Normal']
@@ -22,7 +22,7 @@ def TestDocument(request):
     font.bold = True
 
     #Merge Specific Rows
-
+    # -----------------------------
     table.cell(0,0).merge(table.cell(0,1))
     table.cell(1,0).merge(table.cell(1,1))
     x = 6
@@ -42,7 +42,7 @@ def TestDocument(request):
 
     table.columns[0].cells[6].text = '1. Objective:'
     table.columns[0].cells[8].text = '2. Intended Learning Outcomes (ILOs):'
-    table.columns[0].cells[10].text = '3. Dicussion:'
+    table.columns[0].cells[10].text = '3. Discussion:'
     table.columns[0].cells[12].text = '4. Resources:'
     table.columns[0].cells[14].text = '5. Procedures:'
     table.columns[0].cells[16].text = '6. Results:'

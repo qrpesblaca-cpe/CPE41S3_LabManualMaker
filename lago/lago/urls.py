@@ -20,7 +20,8 @@ from main import views as m
 
 urlpatterns = [
     path('', include("main.urls")),
-    path('register/', m.register_request, name="register"),
+    path('home/', m.home, name="home"),
     path('admin/', admin.site.urls),
-    path('create/', c.TestDocument, name="TestDocument"),
+    path('create/', c.downloadTemp, name="downloadTemp"),
+    
 ]

@@ -1,0 +1,29 @@
+{%  extends 'main/base2x3bg.html' %}
+
+{% block title %}
+Sign Up | LAGO
+{% endblock %}
+
+{% block heading2 %}
+{% load crispy_forms_tags %}         
+
+<!--Register--> 
+
+<div class="container py-5">
+	<h1 style="font-size:35px;font-family:'Inter', sans-serif;color:white;text-shadow: 1px 1px 4px #000000;
+	text-align:center;"><b>Sign Up</b></h1>
+
+	<form method="POST" class="loginfrm">
+		{% csrf_token %}
+		{{ register_form|crispy }}
+		<div class="container">    
+			<div class="center">                
+		<button class="btn btn-warning" type="submit" style="text-align:center">Sign Up</button>
+			</div>
+		</div>
+	</form>
+	
+	<br>
+	<p style="color:white"class="text-center">If you already have an account, <a href="/">sign in</a> instead.</p>
+</div>
+{% endblock %}
