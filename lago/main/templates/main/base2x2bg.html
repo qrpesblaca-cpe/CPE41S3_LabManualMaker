@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            body {
+                background-image: url('https://cdn.discordapp.com/attachments/1001950406626254926/1029791491637395486/loginBG-darken.png');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+ 
+            input {
+                max-width: 40em;
+                height: 55px !important;
+            }
+            
+            .loginfrm {
+                color: white;
+            }
+
+            a:link {
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+                font-family:'Inter', sans-serif;
+                text-shadow: 1px 1px 4px #000000;
+            }
+            a:visited {
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+            }
+            a:hover {
+                color: blue;
+                background-color: transparent;
+                text-decoration: underline;
+            }
+            a:active {
+                color: blue;
+                background-color: transparent;
+                text-decoration: underline;
+            }
+
+            .btn-xl {
+                padding: 10px 20px;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+        </style>
+        
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+        <title>
+            {% block title %} 
+            LAGO 
+            {% endblock %}
+        </title>
+        
+    </head>
+
+    <body>
+        <div class = "container">
+
+            <div class="row">
+                <div class="col">
+
+                    <div id = "heading", name = "heading" >
+                        {% block heading %}
+                        <!--base 1-->
+                        {% endblock %}
+                    </div>
+
+                    <div id = "content", name = "content" >
+                        {% block content %}
+                        <!--base 2-->
+                        {% endblock %}
+                    </div>
+
+                </div>
+        
+                <div class="col">
+                    <div id = "heading2", name = "heading2" >
+                        {% block heading2 %}
+                        <!--base 3-->
+                        {% endblock %}
+                    </div>
+
+                    <div id = "content2", name = "content2" >
+                        {% block content2 %}
+                        <!--base 4-->
+                        {% endblock %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</html>

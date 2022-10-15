@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+    <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        overflow-x: hidden; 
+    }
+
+    .btn-xl {
+        padding: 10px 20px;
+        font-size: 25px;
+        border-radius: 10px;
+        width:40%;
+        height:20%;
+    }
+    
+    .topnav {
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    .topnav a {
+        float: left;
+        display: block;
+        color: #000000;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .active {
+        background-color: #fec007;
+        color: white;
+    }
+
+    .topnav .icon {
+        display: none;
+    }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 17px;    
+        border: none;
+        outline: none;
+        color: black;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .topnav a:hover, .dropdown:hover .dropbtn {
+        background-color: #ededed;
+        color: black;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child), .dropdown .dropbtn {
+            display: none;
+        }
+        .topnav a.icon {
+            float: right;
+            display: block;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav.responsive {position: relative;}
+        .topnav.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+        .topnav.responsive .dropdown {float: none;}
+        .topnav.responsive .dropdown-content {position: relative;}
+        .topnav.responsive .dropdown .dropbtn {
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    button {
+        background-color: #FFFFFF;
+        color: black;
+        padding: 5px 5px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 10%;
+        opacity: 0.9;
+    }
+      
+    button:hover {
+        opacity:1;
+    
+    }
+
+    /* Float cancel and delete buttons and add an equal width */
+    .cancelbtn, .deletebtn {
+        float: center;
+        width: 10%;
+    }
+
+    /* Add a color to the cancel button */
+    .cancelbtn {
+    background-color: #ccc;
+    color: black;
+    }
+
+    /* Add a color to the delete button */
+    .deletebtn {
+    background-color: #fdc51d;
+    }
+
+    /* Add padding and center-align text to the container */
+    .container {
+        padding: 50px;
+        text-align: center;
+        width:100%;
+        position:absolute;
+        background:#ffffff;
+        left:0;
+        right:0;
+    }
+    
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: relative; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: #FFFFFF;
+        padding-top: 50px;
+        opacity: .9;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        margin: 11% auto 14% auto; /* 5% from the top, 15% from the bottom and centered */
+        width: 50%; /* Could be more or less, depending on screen size */
+        opacity: 1;
+    }
+
+    /* Style the horizontal ruler */
+    hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+    }
+    
+
+    .close:hover,
+    .close:focus {
+        color: #f44336;
+        cursor: pointer;
+    }
+
+    /* Clear floats */
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    /* Change styles for cancel button and delete button on extra small screens */
+    @media screen and (max-width: 300px) {
+    .cancelbtn, .deletebtn {
+        width: 100%;
+    }
+    }
+    
+        
+    </style>
+
+    <head>
+        {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        {% endblock %}
+
+        <title>
+        {% block title %}
+        
+        {% endblock %}
+        </title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <body style="background-color: #ede8e0;">
+        {% block body %}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        {% endblock %}
+    </body>
+    
+    <script>
+        function myFunction() {
+          var x = document.getElementById("myTopnav");
+          if (x.className === "topnav") {
+            x.className += " responsive";
+          } else {
+            x.className = "topnav";
+          }
+        }
+      </script>
+      <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        </script>
+</html>
