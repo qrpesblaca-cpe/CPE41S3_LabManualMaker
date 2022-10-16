@@ -8,11 +8,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 
 
-# Create your views here.
+# Requires user to sign up 
+# before accessing /home
+# -----------------------------
 @login_required(login_url='/')
 def home(response):
     return render(response, "main/home.html", {})
 
+# Function for inserting data 
+# from forms into the labmanual 
+# model
+# -----------------------------
 @login_required(login_url='/')
 def insertlab(request):
 	if request.method == "POST":
@@ -28,7 +34,8 @@ def insertlab(request):
 	manual = labmanual.objects.all()
 	return render(request=request, template_name="main/insertlab.html", context={'labmanual_form':labmanual_form, 'manual':manual})
 
-
+# Function for creating user
+# -----------------------------
 def signup(request):
 	if request.method == "POST":
 		form = RegistrationForm(request.POST)
@@ -41,6 +48,9 @@ def signup(request):
 	form = RegistrationForm()
 	return render (request=request, template_name="main/signup.html", context={"register_form":form})
 
+
+# Function for user sign in
+# ---------------------------
 def signin(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
@@ -59,6 +69,8 @@ def signin(request):
 	form = AuthenticationForm()
 	return render(request=request, template_name="main/signin.html", context={"login_form":form})
 
+# Function for user sign out
+# ---------------------------
 def signout(request):
 	logout(request)
 	return redirect("/")

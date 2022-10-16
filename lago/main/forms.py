@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your forms here.
 
+# Declare CPE courses
+# ---------------------------
 courses_cpe = [
 	('CPE 003','CPE 003 - Computer-Aided Drafting'),
 	('CPE 006','CPE 006 - Microprocessor Systems'),
@@ -58,6 +60,8 @@ courses_cpe = [
 	('TECH 104','TECH 104 - Technopreneurship 4'),
 ]
 
+# Form for user registration
+# ---------------------------
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
 
@@ -86,7 +90,9 @@ class RegistrationForm(UserCreationForm):
 			user.save()
 		return user
 
-
+# Form for user lab manual
+# creation
+# ---------------------------
 class LabManualForm(forms.ModelForm):
 	course_code = forms.CharField(label='Choose', widget=forms.Select(choices=courses_cpe))
 	supplementary = forms.CharField(required=False)

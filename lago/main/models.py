@@ -1,7 +1,8 @@
 from django.db import models
 
-# Create your models here.
 
+# Laboratory manual model
+# ---------------------------
 class labmanual(models.Model):
     act_no = models.CharField(max_length=20, default="")
     lab_title = models.CharField(max_length=50)

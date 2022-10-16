@@ -9,10 +9,18 @@ import docx
 
 def downloadTemp(request):
 
+    # Create document
+    # -----------------------------
     document = Document()
     docx_title = "LAGO-test.docx"
+    core_properties = document.core_properties
 
-    #Create Table
+    # Insert author & comment
+    # -----------------------------
+    core_properties.author = 'Laboratory Manual Maker'
+    core_properties.comments = 'created by Laboratory Manual Maker'
+
+    # Create table
     # -----------------------------
     table = document.add_table(rows=26, cols=2)
     table.style = 'Table Grid'
@@ -22,7 +30,7 @@ def downloadTemp(request):
     font.size = Pt(12)
     font.bold = True
 
-    #Merge Specific Rows
+    # Merge specific rows
     # -----------------------------
     table.cell(0,0).merge(table.cell(0,1))
     table.cell(1,0).merge(table.cell(1,1))
@@ -34,6 +42,8 @@ def downloadTemp(request):
     p.paragraph_format.space_after = Pt(12)
     p.alignment=WD_PARAGRAPH_ALIGNMENT.CENTER
 
+    # Insert labels into cells
+    # -----------------------------
     table.columns[0].cells[2].text = 'Course Code: '
     table.columns[0].cells[3].text = 'Course Title: '
     table.columns[0].cells[4].text = 'Section: '
@@ -55,9 +65,11 @@ def downloadTemp(request):
     table.columns[0].cells[22].text = '9. Conclusions:'
     table.columns[0].cells[24].text = '10. Supplementary Activity:'
 
+
     # Prepare document for download        
     # -----------------------------
     f = BytesIO()
+
     document.save(f)
     length = f.tell()
     f.seek(0)
