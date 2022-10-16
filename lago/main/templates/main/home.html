@@ -15,7 +15,6 @@ Home | LAGO
     <a aria-disabled="true" >Hello&nbsp;<b>{{request.user.username}}</b>!</a>
   </div>
 </div>
-
 {% endblock %}
 
 {% block body %}
@@ -23,13 +22,13 @@ Home | LAGO
 <div id="id01" class="modal">
   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal"></span>
   <form class="modal-content border-0" action="/signout">
-    <div class="container">
+    <div class="container_signout">
       <h1>Sign Out</h1>
       <p>Are you sure you want to sign out?</p>
     
       <div class="clearfix">
         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button class=deletebtn>Sign Out </button>
+        <button class=btnwarning>Sign Out </button>
       </div>
     </div>
   </form>
@@ -39,7 +38,7 @@ Home | LAGO
   <div class="col">
     <br><br><br><br><b style="font-size:60px;font-family:'Inter', sans-serif;">&nbsp;<b>Lab Manual<br>&nbsp;Maker</b></b>
     <br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button class="btn btn-warning btn-xl" type="button" style="font-size:27px"onclick = "location.href='/home/insert'">Create a Laboratory Manual</button>
+    <button class="btnwarning btn-xl" type="button" style="font-size:27px"onclick = "location.href='/home/insert'">Create a Laboratory Manual</button>
     <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button class="btn btn-secondary btn-xl" type="button" style="font-size:27px">Open an Existing Manual</button>
 

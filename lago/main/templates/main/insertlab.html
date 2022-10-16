@@ -12,7 +12,7 @@ Create Lab Manual
   <a href="#contact">About</a>
   <a href="/home/insert">Settings</a>
   <div class="d-flex flex-row-reverse">
-    <a href="/signout">Sign out</a>
+    <button onclick="document.getElementById('id01').style.display='block'">Sign Out</button>
     <a aria-disabled="true" >Hello&nbsp;<b>{{request.user.username}}</b>!</a>
   </div>
 </div>
@@ -21,6 +21,21 @@ Create Lab Manual
 
 
 {% block body %}
+<!--modal-->
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal"></span>
+  <form class="modal-content border-0" action="/signout">
+    <div class="container_signout">
+      <h1>Sign Out</h1>
+      <p>Are you sure you want to sign out?</p>
+    
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button class=btnwarning>Sign Out </button>
+      </div>
+    </div>
+  </form>
+</div>
 
 {% load crispy_forms_tags %}  
 
@@ -31,7 +46,7 @@ Create Lab Manual
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
         {{labmanual_form|crispy}}
-        <button class="btn btn-warning my-4" type="submit">Submit</button>
+        <button class="btnwarning my-4" type="submit">Submit</button>
   </form>
   <!--Django Model-->
   <h2 class="my-4">Laboratory Manuals</h2>
