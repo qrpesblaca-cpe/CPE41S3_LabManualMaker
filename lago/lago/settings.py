@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'create.apps.CreateConfig',
     'crispy_forms',
-    'tailwind',
-    'widget_tweaks',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

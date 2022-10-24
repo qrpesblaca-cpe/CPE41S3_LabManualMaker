@@ -5,6 +5,14 @@ LAGO
 {% endblock %}
 
 {% block heading %}
+{% if messages %}
+  {% for msg in messages %}
+    <div class="alert alert-danger" id="message_container" style="position: absolute; width: 950px">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      {{msg.message}}
+    </div>
+  {% endfor %}
+{% endif %}>
     <br><br>
     <b style="font-size:73px;font-family:'Inter', sans-serif;"><b>Lab Manual <br> Maker</b></b>
 {% endblock %}
@@ -30,7 +38,7 @@ LAGO
 {% block content2 %}
 {% load crispy_forms_tags %}
 
-<!--Login--> 
+<!--User login--> 
 <div class="container py-5">
   <form method="POST" class="loginfrm ">
     {% csrf_token %}

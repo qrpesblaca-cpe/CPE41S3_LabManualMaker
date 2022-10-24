@@ -48,7 +48,6 @@ def signup(request):
 	form = RegistrationForm()
 	return render (request=request, template_name="main/signup.html", context={"register_form":form})
 
-
 # Function for user sign in
 # ---------------------------
 def signin(request):
@@ -60,7 +59,7 @@ def signin(request):
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				messages.info(request, f"You are now logged in as {username}.")
+				#messages.info(request, f"You are now logged in as {username}.")
 				return redirect("home")
 			else:
 				messages.error(request,"Invalid username or password.")
