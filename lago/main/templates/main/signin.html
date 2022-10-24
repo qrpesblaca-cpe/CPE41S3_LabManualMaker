@@ -5,14 +5,14 @@ LAGO
 {% endblock %}
 
 {% block heading %}
+<!--Modal for successful registration and unsuccessful login-->
 {% if messages %}
-  {% for msg in messages %}
-    <div class="alert alert-danger" id="message_container" style="position: absolute; width: 950px">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      {{msg.message}}
-    </div>
-  {% endfor %}
-{% endif %}>
+    {% for message in messages %}
+        <div  class="alert {% if message.tags %} {{message.tags}} {% endif %}" id="message_container" style="position: absolute; width:950px">   
+             {{message}} 
+        </div> 
+    {% endfor %}
+{% endif %}
     <br><br>
     <b style="font-size:73px;font-family:'Inter', sans-serif;"><b>Lab Manual <br> Maker</b></b>
 {% endblock %}

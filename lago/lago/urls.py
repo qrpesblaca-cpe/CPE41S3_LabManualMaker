@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from create import views as c
 from main import views as m
 
 admin.site.site_header = 'LAGO Admin'
@@ -26,6 +25,6 @@ urlpatterns = [
     path('', include("main.urls")),
     path('home/', m.home, name="home"),
     path('admin/', admin.site.urls),
-    path('create/', c.downloadTemp, name="downloadTemp"),
+    path('create/', m.downloadTemp, name="downloadTemp"),
     
 ]
