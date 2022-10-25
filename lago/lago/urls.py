@@ -25,6 +25,6 @@ urlpatterns = [
     path('', include("main.urls")),
     path('home/', m.home, name="home"),
     path('admin/', admin.site.urls),
-    path('create/', m.downloadTemp, name="downloadTemp"),
+    path('download/', m.downloadTemp, name="downloadTemp"),
     
 ]

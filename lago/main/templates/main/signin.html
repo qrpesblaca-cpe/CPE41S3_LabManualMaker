@@ -1,20 +1,20 @@
-{%  extends 'main/base2x2bg.html' %}
+{% extends 'main/base2x2bg.html' %}
 
 {% block title %}
-LAGO
+  LAGO
 {% endblock %}
 
 {% block heading %}
-<!--Modal for successful registration and unsuccessful login-->
-{% if messages %}
-    {% for message in messages %}
-        <div  class="alert {% if message.tags %} {{message.tags}} {% endif %}" id="message_container" style="position: absolute; width:950px">   
-             {{message}} 
-        </div> 
-    {% endfor %}
-{% endif %}
-    <br><br>
-    <b style="font-size:73px;font-family:'Inter', sans-serif;"><b>Lab Manual <br> Maker</b></b>
+  <!--Modal for successful registration and unsuccessful login-->
+  {% if messages %}
+      {% for message in messages %}
+          <div  class="alert {% if message.tags %} {{message.tags}} {% endif %}" id="message_container" style="position: absolute; width:950px">   
+              {{message}} 
+          </div> 
+      {% endfor %}
+  {% endif %}
+      <br><br>
+      <b style="font-size:73px;font-family:'Inter', sans-serif;"><b>Lab Manual <br> Maker</b></b>
 {% endblock %}
 
 {% block content %}
@@ -36,16 +36,16 @@ LAGO
 {% endblock %}
 
 {% block content2 %}
-{% load crispy_forms_tags %}
+  {% load crispy_forms_tags %}
 
-<!--User login--> 
-<div class="container py-5">
-  <form method="POST" class="loginfrm ">
-    {% csrf_token %}
-    {{ login_form|crispy }}
-    <button class="btn btn-warning" type="submit" style="font-size:25px"><b>Sign In</b></button>
-  </form><br>
-  <a href="{% url 'downloadTemp' %}">Forgot Password?</a><br>
-  <a href="{% url 'signup' %}">Don't have an account?</a>
-</div>
+  <!--User login--> 
+  <div class="container py-5">
+    <form method="POST" class="loginfrm ">
+      {% csrf_token %}
+      {{ login_form|crispy }}
+      <button class="btn btn-warning" type="submit" style="font-size:25px"><b>Sign In</b></button>
+    </form><br>
+    <a href="{% url 'downloadTemp' %}">Forgot Password?</a><br>
+    <a href="{% url 'signup' %}">Don't have an account?</a>
+  </div>
 {% endblock %}

@@ -41,6 +41,12 @@ def insertlab(request):
 	manual = labmanual.objects.all()
 	return render(request=request, template_name="main/insertlab.html", context={'labmanual_form':labmanual_form, 'manual':manual})
 
+# View existing lab manuals
+# -----------------------------
+@login_required(login_url='/')
+def viewlab(response):
+    return render(response, "main/view.html", {})
+
 # Function for creating user
 # -----------------------------
 def signup(request):
@@ -81,7 +87,8 @@ def signout(request):
 	logout(request)
 	return redirect("/")
 
-
+# Download lab manual template
+# ---------------------------
 def downloadTemp(request):
 
     # Create document
@@ -119,7 +126,7 @@ def downloadTemp(request):
 
     # Insert labels into cells
     # -----------------------------
-    table.columns[0].cells[2].text = 'Course Code: '
+    table.columns[0].cells[2].text = 'Course Code: ' 
     table.columns[0].cells[3].text = 'Course Title: '
     table.columns[0].cells[4].text = 'Section: '
     table.columns[0].cells[5].text = 'Name/s: '
