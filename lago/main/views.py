@@ -138,7 +138,7 @@ def downloadTemp(request):
 
     # Insert labels into cells
     # -----------------------------
-    table.columns[0].cells[2].text = 'Course Code: ' 
+    table.columns[0].cells[2].text = 'Course Code: '
     table.columns[0].cells[3].text = 'Course Title: '
     table.columns[0].cells[4].text = 'Section: '
     table.columns[0].cells[5].text = 'Name/s: '

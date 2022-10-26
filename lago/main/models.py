@@ -1,6 +1,7 @@
 from dataclasses import Field
 from typing import Optional
 from django.db import models
+from ckeditor.fields import RichTextField
 
 
 # Laboratory manual model
@@ -14,7 +15,7 @@ class labmanual(models.Model):
     ilos = models.CharField(max_length=200)
     discussion = models.CharField(max_length=500)
     res = models.CharField(max_length=100)
-    procedures = models.CharField(max_length=300)
+    procedures = RichTextField(blank=True, null=True)
     questions = models.CharField(max_length=200)
     supplementary = models.CharField(max_length=200)
 

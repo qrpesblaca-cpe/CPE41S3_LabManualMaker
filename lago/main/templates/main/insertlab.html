@@ -16,6 +16,7 @@
     <h2 class="my-4">Add a new Laboratory Manual</h2>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
+          {{ labmanual_form.media }}
           {{labmanual_form|crispy}}
           <button class="btnwarning my-4" type="submit">Submit</button>
     </form>
@@ -28,7 +29,7 @@
         <div class="card h-100 p-4">
           <h4>{{m.lab_title}}</h4>
           <p class="text-muted">{{m.course_code}} | Activity No.{{m.act_no}}</p>
-          <p>{{m.discussion}}</p>
+          <p>{{m.procedures|safe}}</p>
         </div>
       </div>
 
