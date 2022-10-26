@@ -45,6 +45,20 @@ def viewlab(request):
     return render(request, 'main/view.html',
         {'labmanual_list': labmanual_list})
 
+# About the theme
+# --------------------------
+@login_required(login_url='/')
+def about(response):
+    return render(response, "main/about.html", {})
+
+# Preview of lab manuals
+# -----------------------------
+@login_required(login_url='/')
+def preview(request):
+    labmanual_list = labmanual.objects.all()
+    return render(request, 'main/preview.html',
+        {'labmanual_list': labmanual_list})
+
 # Function for creating user
 # -----------------------------
 def signup(request):

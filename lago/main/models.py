@@ -1,9 +1,12 @@
+from dataclasses import Field
+from typing import Optional
 from django.db import models
 
 
 # Laboratory manual model
 # ---------------------------
 class labmanual(models.Model):
+    id = models.AutoField(primary_key=True)
     act_no = models.CharField(max_length=20, default="")
     lab_title = models.CharField(max_length=50)
     course_code = models.CharField(max_length=50)

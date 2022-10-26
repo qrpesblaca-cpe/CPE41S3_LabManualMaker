@@ -8,22 +8,6 @@
 {% endblock %}
 
 {% block body %}
-  <!--Sign out Modal-->
-  <div id="id01" class="modal">
-    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal"></span>
-    <form class="modal-content border-0" action="/signout">
-        <div class="container_signout">
-          <h1>Sign Out</h1>
-          <p>Are you sure you want to sign out?</p>
-          
-          <div class="clearfix">
-            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-            <button class=btnwarning>Sign Out </button>
-          </div>
-        </div>
-    </form>
-  </div>
-
   {% load crispy_forms_tags %}  
           
   <div class="container">

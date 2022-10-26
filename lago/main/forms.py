@@ -101,6 +101,7 @@ class LabManualForm(forms.ModelForm):
 	class Meta:
 		model = labmanual
 		fields = (
+			'id',
 			'act_no',
 			'lab_title',
 			'course_code',
