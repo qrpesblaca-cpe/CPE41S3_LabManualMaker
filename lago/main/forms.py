@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your forms here.
 
-# Declare CPE courses
+# Declared CPE courses
 # ---------------------------
 courses_cpe = [
 	('CPE 003','CPE 003 - Computer-Aided Drafting'),

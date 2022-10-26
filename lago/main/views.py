@@ -1,7 +1,5 @@
 from .models import labmanual
 from .forms import RegistrationForm, LabManualForm
-from distutils.log import error
-from urllib import request
 from django.shortcuts import  render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login,logout, authenticate
@@ -9,9 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from docx import *
-from docx.shared import Inches, Pt
+from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from datetime import date
 from io import BytesIO
 
 
@@ -32,7 +29,6 @@ def insertlab(request):
 		labmanual_form = LabManualForm(request.POST, request.FILES)
 		if labmanual_form.is_valid():
 			labmanual_form.save()
-			messages.success(request, ('Your manual was successfully added!'))
 		else:
 			messages.error(request, 'Error saving form')
 
@@ -44,8 +40,10 @@ def insertlab(request):
 # View existing lab manuals
 # -----------------------------
 @login_required(login_url='/')
-def viewlab(response):
-    return render(response, "main/view.html", {})
+def viewlab(request):
+    labmanual_list = labmanual.objects.all()
+    return render(request, 'main/view.html',
+        {'labmanual_list': labmanual_list})
 
 # Function for creating user
 # -----------------------------

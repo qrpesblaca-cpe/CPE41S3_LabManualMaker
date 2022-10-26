@@ -43,9 +43,11 @@
     <form method="POST" class="loginfrm ">
       {% csrf_token %}
       {{ login_form|crispy }}
+      <br>
       <button class="btn btn-warning" type="submit" style="font-size:25px"><b>Sign In</b></button>
     </form><br>
     <a href="{% url 'downloadTemp' %}">Forgot Password?</a><br>
     <a href="{% url 'signup' %}">Don't have an account?</a>
   </div>
+  <br>
 {% endblock %}

@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block head %}
-  <link rel="icon" href="https://cdn.discordapp.com/attachments/1001950406626254926/1034166291310846102/unknown.png">
 {% endblock %}
-
 
 {% block body %}
   <!--sign out modal-->
@@ -25,6 +23,15 @@
         </div>
     </form>
   </div>
-
   <h1>View existing laboratory manuals</h1>
+
+  <!--display created lab manual-->
+  {% for lab in labmanual_list %}
+  <div class="">
+    <button class=button>{{ lab }} </button>
+  </div>
+  {% endfor %}
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
