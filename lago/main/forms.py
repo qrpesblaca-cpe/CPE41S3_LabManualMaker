@@ -100,6 +100,13 @@ class LabManualForm(forms.ModelForm):
 
 	class Meta:
 		model = labmanual
+		widgets = {
+          'objective': forms.Textarea(attrs={'rows':3, 'cols':3}),
+		  'ilos': forms.Textarea(attrs={'rows':3, 'cols':3}),
+		  'res': forms.Textarea(attrs={'rows':3, 'cols':3}),
+		  'discussion': forms.Textarea(attrs={'rows':5, 'cols':5}),
+        }
+		
 		fields = (
 			'id',
 			'act_no',

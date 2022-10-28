@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
     'crispy_forms',
+    'widget_tweaks',
     'tinymce',
     'ckeditor',
 ]
@@ -135,4 +136,12 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
+}
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width': '100%',
+        'height': '400',
+        'toolbarCanCollapse': False,
+    },
 }

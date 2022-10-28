@@ -42,10 +42,13 @@ def insertlab(request):
 @login_required(login_url='/')
 def viewlab(request):
     labmanual_list = labmanual.objects.all()
-    return render(request, 'main/view.html',
-        {'labmanual_list': labmanual_list})
+    context = {
+        'labmanual_list': labmanual_list,
+    }
+    
+    return render(request, 'main/view.html', context)  
 
-# About the theme
+# About the team
 # --------------------------
 @login_required(login_url='/')
 def about(response):
@@ -54,10 +57,12 @@ def about(response):
 # Preview of lab manuals
 # -----------------------------
 @login_required(login_url='/')
-def preview(request):
-    labmanual_list = labmanual.objects.all()
-    return render(request, 'main/preview.html',
-        {'labmanual_list': labmanual_list})
+def preview(request,Uid):
+    lab_specific = labmanual.objects.all().filter(id=Uid)
+    context = {
+        'lab_specific':lab_specific,
+    }
+    return render(request, 'main/preview.html', context)
 
 # Function for creating user
 # -----------------------------
@@ -101,8 +106,7 @@ def signout(request):
 
 # Download lab manual template
 # ---------------------------
-def downloadTemp(request):
-
+def downloadTemp(request, Uid):
     # Create document
     # -----------------------------
     document = Document()
@@ -111,7 +115,7 @@ def downloadTemp(request):
 
     # Insert author & comment
     # -----------------------------
-    core_properties.author = 'Laboratory Manual Maker'
+    core_properties.author = 'Laboratory Manual On the Go'
     core_properties.comments = 'created by Laboratory Manual Maker'
 
     # Create table
@@ -123,6 +127,8 @@ def downloadTemp(request):
     font.name = 'Arial Narrow'
     font.size = Pt(12)
     font.bold = True
+    
+    act_no, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = get(Uid)
 
     # Merge specific rows
     # -----------------------------
@@ -131,14 +137,13 @@ def downloadTemp(request):
     x = 6
     for x in range(6,26):
         table.cell(x,0).merge(table.cell(x,1))
-
-    p=table.columns[0].cells[0].add_paragraph('Activity No. ')
+    p=table.columns[0].cells[0].add_paragraph('Activity No. '+ act_no)
     p.paragraph_format.space_after = Pt(12)
     p.alignment=WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Insert labels into cells
     # -----------------------------
-    table.columns[0].cells[2].text = 'Course Code: '
+    table.columns[0].cells[2].text = 'Course Code: ' + course_code
     table.columns[0].cells[3].text = 'Course Title: '
     table.columns[0].cells[4].text = 'Section: '
     table.columns[0].cells[5].text = 'Name/s: '
@@ -149,15 +154,22 @@ def downloadTemp(request):
     table.columns[1].cells[5].text = 'Instructor: \n\n'
 
     table.columns[0].cells[6].text = '1. Objective:'
+    table.columns[0].cells[7].text = objectives
     table.columns[0].cells[8].text = '2. Intended Learning Outcomes (ILOs):'
+    table.columns[0].cells[9].text = ilos
     table.columns[0].cells[10].text = '3. Discussion:'
+    table.columns[0].cells[11].text = discussion
     table.columns[0].cells[12].text = '4. Resources:'
+    table.columns[0].cells[13].text = res
     table.columns[0].cells[14].text = '5. Procedures:'
+    table.columns[0].cells[15].text = procedures
     table.columns[0].cells[16].text = '6. Results:'
     table.columns[0].cells[18].text = '7. Observations:'
     table.columns[0].cells[20].text = '8. Questions:'
+    table.columns[0].cells[21].text = questions
     table.columns[0].cells[22].text = '9. Conclusions:'
     table.columns[0].cells[24].text = '10. Supplementary Activity:'
+    table.columns[0].cells[25].text = supplementary
 
 
     # Prepare document for download        
@@ -175,3 +187,18 @@ def downloadTemp(request):
     response['Content-Length'] = length
     return response
 
+    # Fetch data from the database        
+    # -----------------------------
+def get(Uid):
+    lab_specific = labmanual.objects.all().filter(id=Uid)
+    for lab in lab_specific:
+        act_no = lab.act_no
+        course_code = lab.course_code
+        objectives = lab.objective
+        ilos = lab.ilos
+        discussion = lab.discussion
+        res = lab.res
+        procedures = lab.procedures
+        questions = lab.questions
+        supplementary = lab.supplementary
+        return act_no, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary

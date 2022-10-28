@@ -9,13 +9,12 @@
 
 {% block body %}
   <h1>View existing laboratory manuals</h1>
-
   <!--display created lab manual-->
   {% for lab in labmanual_list %}
   <ul>
   <div class="column">
-    <button onclick="location.href='/home/view/preview'">{{ lab.course_code }} - <br> 
-      {{ lab.lab_title }}
+    <button onclick='location.href="/home/view/{{ forloop.counter }}"'> {{ lab.course_code }} - <br> 
+      {{ lab.id }}
     </button>
   </div>
   </ul>
