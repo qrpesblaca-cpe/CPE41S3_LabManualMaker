@@ -4,6 +4,16 @@
 	Sign Up | LAGO
 {% endblock %}
 
+{% block heading %}
+	{% if messages %}
+		{% for message in messages %}
+			<div  class="alert {% if message.tags %} {{message.tags}} {% endif %}" id="message_container" style="position: absolute; width:1100px">   
+				{{message}} 
+			</div> 
+		{% endfor %}
+	{% endif %}
+{% endblock %}
+
 {% block heading2 %}
 	{% load crispy_forms_tags %}         
 

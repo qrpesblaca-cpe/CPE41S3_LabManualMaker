@@ -8,16 +8,18 @@
 {% endblock %}
 
 {% block body %}
-  <h1>View existing laboratory manuals</h1>
+  <h1 style="text-align:center">Laboratory Manuals</h1>
   <!--display created lab manual-->
   {% for lab in labmanual_list %}
   <ul>
   <div class="column">
     <button onclick='location.href="/home/view/{{ forloop.counter }}"'> {{ lab.course_code }} - <br> 
-      {{ lab.id }}
+      {{ lab.lab_title }}
     </button>
   </div>
   </ul>
+  {% empty %}
+      <br><br><p style="text-align:center">No laboratory manuals added (￣ε￣＠)	</p>
   {% endfor %}
 {% endblock %}
 

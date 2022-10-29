@@ -74,7 +74,7 @@ def signup(request):
 			login(request, user)
 			messages.success(request, "Signup successful.", extra_tags='valid')
 			return redirect('/')
-		messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='invalid')
+		messages.error(request, "Error: User Registration failed.", extra_tags='invalid')
 	form = RegistrationForm()
 	return render (request=request, template_name="main/signup.html", context={"register_form":form})
 
@@ -128,7 +128,7 @@ def downloadTemp(request, Uid):
     font.size = Pt(12)
     font.bold = True
     
-    act_no, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = get(Uid)
+    act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = get(Uid)
 
     # Merge specific rows
     # -----------------------------
@@ -187,12 +187,13 @@ def downloadTemp(request, Uid):
     response['Content-Length'] = length
     return response
 
-    # Fetch data from the database        
-    # -----------------------------
+# Fetch data from the database        
+# -----------------------------
 def get(Uid):
     lab_specific = labmanual.objects.all().filter(id=Uid)
     for lab in lab_specific:
         act_no = lab.act_no
+        lab_title = lab.lab_title
         course_code = lab.course_code
         objectives = lab.objective
         ilos = lab.ilos
@@ -201,4 +202,4 @@ def get(Uid):
         procedures = lab.procedures
         questions = lab.questions
         supplementary = lab.supplementary
-        return act_no, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary
+        return act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary
