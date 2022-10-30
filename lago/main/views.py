@@ -119,7 +119,7 @@ def downloadTemp(request, Uid):
     # Insert author & comment
     # -----------------------------
     core_properties.author = 'Laboratory Manual On the Go'
-    core_properties.comments = 'created by Laboratory Manual Maker'
+    core_properties.comments = 'created by Laboratory Manual on the Go'
 
     # Create table
     # -----------------------------
@@ -129,7 +129,7 @@ def downloadTemp(request, Uid):
     font = style.font
     font.name = 'Arial Narrow'
     font.size = Pt(12)
-    font.bold = True
+    font.bold = False
     
     act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = getLab(Uid)
 
@@ -140,39 +140,46 @@ def downloadTemp(request, Uid):
     x = 6
     for x in range(6,26):
         table.cell(x,0).merge(table.cell(x,1))
-    p=table.columns[0].cells[0].add_paragraph('Activity No. '+ act_no)
-    p.paragraph_format.space_after = Pt(12)
-    p.alignment=WD_PARAGRAPH_ALIGNMENT.CENTER
 
     # Insert labels into cells
     # -----------------------------
-    table.columns[0].cells[2].text = 'Course Code: ' + course_code
-    table.columns[0].cells[3].text = 'Course Title: '
-    table.columns[0].cells[4].text = 'Section: '
-    table.columns[0].cells[5].text = 'Name/s: '
+    table.rows[0].cells[0].paragraphs[0].add_run('Activity No. ' + act_no).bold = True
+    table.rows[0].cells[0].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    table.rows[1].cells[0].paragraphs[0].add_run(lab_title).bold = True
+    table.rows[1].cells[0].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    table.rows[2].cells[0].paragraphs[0].add_run('Course Code: ' + course_code).bold = True
+    table.rows[3].cells[0].paragraphs[0].add_run('Course Title: ').bold = True
+    table.rows[4].cells[0].paragraphs[0].add_run('Section: ').bold = True
+    table.rows[5].cells[0].paragraphs[0].add_run('Name/s: ').bold = True
 
-    table.columns[1].cells[2].text = 'Program: '
-    table.columns[1].cells[3].text = 'Date Performed: '
-    table.columns[1].cells[4].text = 'Date Submitted: '
-    table.columns[1].cells[5].text = 'Instructor: ' + request.user.first_name + ' ' + request.user.last_name + '\n\n'
+    table.rows[2].cells[1].paragraphs[0].add_run('Program: ').bold = True
+    table.rows[3].cells[1].paragraphs[0].add_run('Date Performed: ').bold = True
+    table.rows[4].cells[1].paragraphs[0].add_run('Date Submitted: ').bold = True
+    table.rows[5].cells[1].paragraphs[0].add_run('Instructor: ' + request.user.first_name + ' ' + request.user.last_name + '\n\n').bold = True
 
-    table.columns[0].cells[6].text = '1. Objective:'
-    table.columns[0].cells[7].text = objectives
-    table.columns[0].cells[8].text = '2. Intended Learning Outcomes (ILOs):'
-    table.columns[0].cells[9].text = ilos
-    table.columns[0].cells[10].text = '3. Discussion:'
-    table.columns[0].cells[11].text = discussion
-    table.columns[0].cells[12].text = '4. Resources:'
-    table.columns[0].cells[13].text = res
-    table.columns[0].cells[14].text = '5. Procedures:'
-    table.columns[0].cells[15].text = strip_tags(procedures)
-    table.columns[0].cells[16].text = '6. Results:'
-    table.columns[0].cells[18].text = '7. Observations:'
-    table.columns[0].cells[20].text = '8. Questions:'
-    table.columns[0].cells[21].text = questions
-    table.columns[0].cells[22].text = '9. Conclusions:'
-    table.columns[0].cells[24].text = '10. Supplementary Activity:'
-    table.columns[0].cells[25].text = supplementary
+    table.rows[6].cells[0].paragraphs[0].add_run('1. Objective: ').bold = True
+    table.rows[7].cells[0].paragraphs[0].add_run(objectives).bold = False
+    table.rows[8].cells[0].paragraphs[0].add_run('2. Intended Learning Outcomes (ILOs): ').bold = True
+    table.rows[9].cells[0].paragraphs[0].add_run(ilos).bold = False
+    table.rows[10].cells[0].paragraphs[0].add_run('3. Discussion: ').bold = True
+    table.rows[11].cells[0].paragraphs[0].add_run(discussion).bold = False
+    table.rows[11].cells[0].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+    table.rows[12].cells[0].paragraphs[0].add_run('4. Resources: ').bold = True
+    table.rows[13].cells[0].paragraphs[0].add_run(res).bold = False
+    table.rows[14].cells[0].paragraphs[0].add_run('5. Procedures: ').bold = True
+    table.rows[15].cells[0].paragraphs[0].add_run(strip_tags(procedures)).bold = False
+    table.rows[16].cells[0].paragraphs[0].add_run('6. Results: ').bold = True
+    table.rows[18].cells[0].paragraphs[0].add_run('7. Observations: ').bold = True
+    table.rows[20].cells[0].paragraphs[0].add_run('8. Questions: ').bold = True
+    table.rows[21].cells[0].paragraphs[0].add_run(questions).bold = False
+    table.rows[22].cells[0].paragraphs[0].add_run('9. Conclusions: ').bold = True
+    table.rows[24].cells[0].paragraphs[0].add_run('10. Supplementary Activity: ').bold = True
+    table.rows[25].cells[0].paragraphs[0].add_run(supplementary).bold = False
+
+
+
+
+
 
 
     # Prepare document for download        
