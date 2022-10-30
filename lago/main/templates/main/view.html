@@ -7,17 +7,20 @@
 {% block head %}
 {% endblock %}
 
+{% block previous %}
+  <a href=".." class="active"><b>LAGO</b></a>
+{% endblock %}
+
 {% block body %}
   <h1 style="text-align:center">Laboratory Manuals</h1>
   <!--display created lab manual-->
   {% for lab in labmanual_list %}
-  <ul>
   <div class="column">
-    <button onclick='location.href="/home/view/{{ forloop.counter }}"'> {{ lab.course_code }} - <br> 
+    &nbsp;&nbsp;
+    <button class="btn-sm" onclick='location.href="/home/view/{{ forloop.counter }}"'> {{ lab.course_code }} - <br> 
       {{ lab.lab_title }}
     </button>
-  </div>
-  </ul>
+  </div>&nbsp;
   {% empty %}
       <br><br><p style="text-align:center">No laboratory manuals added (￣ε￣＠)	</p>
   {% endfor %}

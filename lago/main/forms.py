@@ -64,12 +64,14 @@ courses_cpe = [
 # ---------------------------
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
-
+	
 
 	class Meta:
 		model = User
 		fields = (
-			"username", 
+			"username",
+			"first_name",
+			"last_name", 
 			"email", 
 			"password1", 
 			"password2"
@@ -80,7 +82,7 @@ class RegistrationForm(UserCreationForm):
 		
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.fields['password1'].help_text = None
+		self.fields['password1'].help_text = '<p style="color:white">Must be 6 characters and above.</p>'
 		self.fields['password2'].help_text = None
 
 	def save(self, commit=True):

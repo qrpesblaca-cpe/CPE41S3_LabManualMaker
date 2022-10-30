@@ -2,46 +2,50 @@
 
 {% block title %}
     {% for lab in lab_specific %}
-        {{ lab.act_no }} | LAGO
+        {{ lab.lab_title }} | LAGO
     {%endfor%}
 {% endblock %}
 
 {% block head %}
 {% endblock %}
 
+{% block previous %}
+    <a href=".." class="active"><b>LAGO</b></a>
+{% endblock %}
+
 {% block body %}
     <div class = "container">
         {% for lab in lab_specific %}
             <div class = "row">
-                <p><h1 style="text-align:center; font-size:30px;font-family:'Inter', sans-serif; margin-bottom:0" ><b>{{ lab.act_no }}</b></h1></p>
-                <h1 style="text-align:center; font-size:25px;font-family:'Inter', sans-serif;" ><b>{{ lab.lab_title }}</b></h1>
+                <p><h1 style="text-align:center; font-size:30px;font-family:'Inter', sans-serif; margin-bottom:0" ><b>Activity No. {{ lab.act_no }}</b></h1></p>
+                <h1 style="text-align:center; font-size:22px;font-family:'Inter', sans-serif;" ><b>{{ lab.lab_title }}</b></h1>
                 <div class="col">
 
                     <div id = "heading", name = "heading" >
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Code:</b> {{ lab.course_code }}</h1>
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Title:</b> {{ lab.lab_title }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Code:</b> {{ lab.course_code }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Title:</b> {{ lab.lab_title }}</h1>
                     </div>
 
                     <div id = "content", name = "content" >
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Objective:</b> {{ lab.objective }}</h1>
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Intended Learning Outcome(s):</b> {{ lab.ilos }}</h1>
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Discussion:</b> {{ lab.discussion }}</h1>
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Resources:</b> {{ lab.res }}</h1>
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Procedure:</b> {{ lab.procedures|safe }}</h1>
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Supplementary Activity:</b> {{ lab.supplementary }}</h1>
-                        <h1 style="text-align:justify; font-size:25px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Questions:</b> {{ lab.questions }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Objective:<br></b> {{ lab.objective }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Intended Learning Outcome(s):<br></b> {{ lab.ilos }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Discussion:<br></b> {{ lab.discussion }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Resources:<br></b> {{ lab.res }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Procedure:<br></b> {{ lab.procedures|safe }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Supplementary Activity:<br></b> {{ lab.supplementary }}</h1>
+                        <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Questions:<br></b> {{ lab.questions }}</h1>
                     </div>
                     
                 </div>
             </div>
         {% endfor %}
-        <br><br><br><br>
+        <br><br><br>
         <div class="center">
             <button class="btn btn-warning btn-md" type="button" style="font-size:27px" onclick = "location.href='#'">Edit</button>  
             <button class="btn btn-success btn-md" type="button" style="font-size:27px" onclick = "location.href='./download/'">Download</button> 
             <button class="btn btn-danger btn-md" type="button" style="font-size:27px" onclick = "location.href='#'">Delete</button> 
         </div>
-        <br><br><br>
+        <br><br>
      </div>
 </body>
 {% endblock %}

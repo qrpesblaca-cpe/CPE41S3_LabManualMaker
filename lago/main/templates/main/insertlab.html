@@ -6,6 +6,9 @@
 
 {% block head %}
 {% endblock %}
+{% block previous %}
+  <a href=".." class="active"><b>LAGO</b></a>
+{% endblock %}
 
 {% block body %}
   {% load crispy_forms_tags %}  
@@ -22,14 +25,14 @@
     </form>
 
     <!--Django Model-->
-    <h2 class="my-4">Laboratory Manuals</h2>
+    {% comment %} <h2 class="my-4">Laboratory Manuals</h2>
     <div class="row">
       {% for m in manual %}
       <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
         <div class="card h-100 p-4">
           <h4>{{m.lab_title}}</h4>
           <p class="text-muted">{{m.course_code}} | Activity No.{{m.act_no}}</p>
-          <p>{{m.objective}}</p>
+          <p>{{m.procedures|safe}}</p>
         </div>
       </div>
 
@@ -37,7 +40,7 @@
       <p>No laboratory manual added.</p>
       {% endfor %}
       
-    </div>
+    </div> {% endcomment %}
 
   </div>
 {% endblock %}

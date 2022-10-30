@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'tinymce',
     'ckeditor',
+    'bs4',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

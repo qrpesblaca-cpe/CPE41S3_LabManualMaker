@@ -1,11 +1,14 @@
 from .models import labmanual
 from .forms import RegistrationForm, LabManualForm
+from bs4 import BeautifulSoup as soup
 from django.shortcuts import  render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login,logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.utils.safestring import SafeString
+from django.utils.html import strip_tags
 from docx import *
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
@@ -128,7 +131,7 @@ def downloadTemp(request, Uid):
     font.size = Pt(12)
     font.bold = True
     
-    act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = get(Uid)
+    act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = getLab(Uid)
 
     # Merge specific rows
     # -----------------------------
@@ -151,7 +154,7 @@ def downloadTemp(request, Uid):
     table.columns[1].cells[2].text = 'Program: '
     table.columns[1].cells[3].text = 'Date Performed: '
     table.columns[1].cells[4].text = 'Date Submitted: '
-    table.columns[1].cells[5].text = 'Instructor: \n\n'
+    table.columns[1].cells[5].text = 'Instructor: ' + request.user.first_name + ' ' + request.user.last_name + '\n\n'
 
     table.columns[0].cells[6].text = '1. Objective:'
     table.columns[0].cells[7].text = objectives
@@ -162,7 +165,7 @@ def downloadTemp(request, Uid):
     table.columns[0].cells[12].text = '4. Resources:'
     table.columns[0].cells[13].text = res
     table.columns[0].cells[14].text = '5. Procedures:'
-    table.columns[0].cells[15].text = procedures
+    table.columns[0].cells[15].text = strip_tags(procedures)
     table.columns[0].cells[16].text = '6. Results:'
     table.columns[0].cells[18].text = '7. Observations:'
     table.columns[0].cells[20].text = '8. Questions:'
@@ -189,7 +192,7 @@ def downloadTemp(request, Uid):
 
 # Fetch data from the database        
 # -----------------------------
-def get(Uid):
+def getLab(Uid):
     lab_specific = labmanual.objects.all().filter(id=Uid)
     for lab in lab_specific:
         act_no = lab.act_no
