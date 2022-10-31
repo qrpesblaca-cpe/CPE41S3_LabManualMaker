@@ -51,6 +51,12 @@ def viewlab(request):
     
     return render(request, 'main/view.html', context)  
 
+# Settings
+#
+@login_required(login_url='/')
+def settings(response):
+    return render(response, "main/settings.html", {})
+
 # About the team
 # --------------------------
 @login_required(login_url='/')
@@ -141,8 +147,8 @@ def downloadTemp(request, Uid):
     for x in range(6,26):
         table.cell(x,0).merge(table.cell(x,1))
 
-    # Insert labels into cells
-    # -----------------------------
+    # Insert labels and content into cells
+    # ------------------------------------
     table.rows[0].cells[0].paragraphs[0].add_run('Activity No. ' + act_no).bold = True
     table.rows[0].cells[0].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     table.rows[1].cells[0].paragraphs[0].add_run(lab_title).bold = True
@@ -176,12 +182,6 @@ def downloadTemp(request, Uid):
     table.rows[24].cells[0].paragraphs[0].add_run('10. Supplementary Activity: ').bold = True
     table.rows[25].cells[0].paragraphs[0].add_run(supplementary).bold = False
 
-
-
-
-
-
-
     # Prepare document for download        
     # -----------------------------
     f = BytesIO()
@@ -213,3 +213,9 @@ def getLab(Uid):
         questions = lab.questions
         supplementary = lab.supplementary
         return act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary
+
+# Delete data from the database
+# -----------------------------
+def deleteLab(request,Uid):
+    labmanual.objects.filter(id=Uid).delete()
+    return redirect("/home/view/")

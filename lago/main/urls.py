@@ -8,6 +8,7 @@ urlpatterns = [
     path("home/", views.home, name="home"),
     path("home/about/", views.about, name="about"),
     path("home/insert/", views.insertlab, name="insertlab"),
+    path("home/settings/", views.settings, name="settings"),
     path("home/view/", views.viewlab, name="view"),
     path("home/view/<int:Uid>/", views.preview, name="preview"),
 ]

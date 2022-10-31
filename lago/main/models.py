@@ -6,7 +6,7 @@ from ckeditor.fields import RichTextField
 # ---------------------------
 class labmanual(models.Model):
     id = models.AutoField(primary_key=True)
-    act_no = models.CharField(max_length=20, default="")
+    act_no = models.IntegerField()
     lab_title = models.CharField(max_length=50)
     course_code = models.CharField(max_length=50)
     objective = models.TextField()

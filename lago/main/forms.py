@@ -103,10 +103,10 @@ class LabManualForm(forms.ModelForm):
 	class Meta:
 		model = labmanual
 		widgets = {
-          'objective': forms.Textarea(attrs={'rows':3, 'cols':3}),
-		  'ilos': forms.Textarea(attrs={'rows':3, 'cols':3}),
-		  'res': forms.Textarea(attrs={'rows':3, 'cols':3}),
-		  'discussion': forms.Textarea(attrs={'rows':5, 'cols':5}),
+          'objective': forms.Textarea(attrs={'rows':3, 'cols':3, 'placeholder':'Laboratory Objectives'}),
+		  'ilos': forms.Textarea(attrs={'rows':3, 'cols':3, 'placeholder':'Intended Learning Outcome(s)'}),
+		  'res': forms.Textarea(attrs={'rows':3, 'cols':3, 'placeholder':'Laboratory Resources'}),
+		  'discussion': forms.Textarea(attrs={'rows':5, 'cols':5, 'placeholder':'Laboratory Discussion'}),
         }
 		
 		fields = (
@@ -122,6 +122,7 @@ class LabManualForm(forms.ModelForm):
 			'questions',
 			'supplementary',
 		)
+		
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['act_no'].label = "Activity No.:"
