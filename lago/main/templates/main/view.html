@@ -12,18 +12,23 @@
 {% endblock %}
 
 {% block body %}
-  <h1 style="text-align:center">Laboratory Manuals</h1>
+  <h1 style="text-align:center">Laboratory Manuals</h1><br>
   <!--display created lab manual-->
-  {% for lab in labmanual_list %}
-  <div class="column">
-    &nbsp;&nbsp;
-    <button class="btn-sm" onclick='location.href="/home/view/{{ forloop.counter }}"'> {{ lab.course_code }} - <br> 
-      {{ lab.lab_title }}
-    </button>
-  </div>&nbsp;
-  {% empty %}
-      <br><br><p style="text-align:center">No laboratory manuals added (￣ε￣＠)	</p>
-  {% endfor %}
+  <div class="row">
+    {% for m in labmanual_list %}
+    <div class="col-lg-2 col-md-6 col-sm-12 pb-4">
+      <div class="card h-100 p-4">
+        <a href="{% url 'post-detail' m.id %}" class="btnwarning" style="text-align: center;text-decoration:none;color:black">open</a>
+        <h4>{{m.lab_title}}</h4>
+        <p class="text-muted">{{m.course_code}} | Activity No.{{m.act_no}}</p>
+      </div>
+    </div>
+
+    {% empty %}
+    <p>No laboratory manual added.</p>
+    {% endfor %}
+    
+  </div>
 {% endblock %}
 
 {% block footer %}

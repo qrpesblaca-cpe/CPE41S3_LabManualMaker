@@ -15,6 +15,8 @@
         /* Add a color to the delete button */
         .btnwarning {
             background-color: #fdc51d;
+            border-radius: 5px;
+            margin-bottom: 5px;
         }
 
         .btnwarning:hover{
@@ -137,7 +139,7 @@
         }
 
         .social-links {
-            margin: 14px;
+            margin: 0px;
             font-size: 25px;
         }
         
@@ -312,11 +314,21 @@
             <a href="/home/about">About</a>
             <a href="/home/settings">Settings</a>
             <div class="d-flex flex-row-reverse">
-              <button onclick="document.getElementById('id01').style.display='block'">Sign Out</button>
-              <a aria-disabled="true" >Hello&nbsp;<b>{{request.user.username}}</b>!</a>
+                <button onclick="document.getElementById('id01').style.display='block'">Sign Out</button>
+                <a aria-disabled="true" >Hello&nbsp;<b>{{request.user.first_name}}</b>!</a>
             </div>
         </div>
         <!--Navigaton Bar End-->
+
+        <!--Modal for successful and unsuccessful manual creation-->
+        {% if messages %}
+            {% for message in messages %}
+                <div  class="alert {% if message.tags %} {{message.tags}} {% endif %}" id="message_container" style="width:5000px">   
+                    {{message}} 
+                </div> 
+            {% endfor %}
+        {% endif %}
+        <!--Modal End-->
 
         <!--Title-->
         <title>
@@ -352,6 +364,8 @@
     
     <!--Footer-->
     <footer>
+    {% block footer %}
+    {% endblock %}
     </footer>
     <!--End Footer-->
 

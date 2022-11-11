@@ -9,11 +9,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.safestring import SafeString
 from django.utils.html import strip_tags
+from django.views.generic import ListView, DetailView
 from docx import *
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from io import BytesIO
-
 
 # Requires user to sign up 
 # before accessing /home
@@ -32,9 +32,7 @@ def insertlab(request):
 		labmanual_form = LabManualForm(request.POST, request.FILES)
 		if labmanual_form.is_valid():
 			labmanual_form.save()
-		else:
-			messages.error(request, 'Error saving form')
-
+			messages.success(request, 'Laboratory manual successfully created!')
 		return redirect("insertlab")
 	labmanual_form = LabManualForm()
 	manual = labmanual.objects.all()
@@ -42,17 +40,21 @@ def insertlab(request):
 
 # View existing lab manuals
 # -----------------------------
-@login_required(login_url='/')
-def viewlab(request):
+class PostListView(ListView):
+    model = labmanual
     labmanual_list = labmanual.objects.all()
-    context = {
-        'labmanual_list': labmanual_list,
-    }
-    
-    return render(request, 'main/view.html', context)  
+    template_name = 'main/view.html'
+    context_object_name: 'labmanual_list'
+    #ordering = ['course_code']
 
+# Preview of lab manuals
+# -----------------------------
+class PostDetailView(DetailView):
+    model = labmanual
+    template_name = 'main/preview.html'
+    
 # Settings
-#
+# --------------------------
 @login_required(login_url='/')
 def settings(response):
     return render(response, "main/settings.html", {})
@@ -62,16 +64,6 @@ def settings(response):
 @login_required(login_url='/')
 def about(response):
     return render(response, "main/about.html", {})
-
-# Preview of lab manuals
-# -----------------------------
-@login_required(login_url='/')
-def preview(request,Uid):
-    lab_specific = labmanual.objects.all().filter(id=Uid)
-    context = {
-        'lab_specific':lab_specific,
-    }
-    return render(request, 'main/preview.html', context)
 
 # Function for creating user
 # -----------------------------
@@ -101,9 +93,9 @@ def signin(request):
 				#messages.info(request, f"You are now logged in as {username}.")
 				return redirect("home")
 			else:
-				messages.error(request,"Invalid username or password.", extra_tags='invalid')
+				messages.error(request,"Error: Invalid username or password.", extra_tags='invalid')
 		else:
-			messages.error(request,"Invalid username or password.", extra_tags='invalid')
+			messages.error(request,"Error: Invalid username or password.", extra_tags='invalid')
 	form = AuthenticationForm()
 	return render(request=request, template_name="main/signin.html", context={"login_form":form})
 
@@ -116,10 +108,12 @@ def signout(request):
 # Download lab manual template
 # ---------------------------
 def downloadTemp(request, Uid):
+    act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = getLab(Uid)
+
     # Create document
     # -----------------------------
     document = Document()
-    docx_title = "LAGO-test.docx"
+    docx_title = course_code + "- Activity No." + str(act_no) + ".docx"
     core_properties = document.core_properties
 
     # Insert author & comment
@@ -136,8 +130,6 @@ def downloadTemp(request, Uid):
     font.name = 'Arial Narrow'
     font.size = Pt(12)
     font.bold = False
-    
-    act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = getLab(Uid)
 
     # Merge specific rows
     # -----------------------------
@@ -149,7 +141,7 @@ def downloadTemp(request, Uid):
 
     # Insert labels and content into cells
     # ------------------------------------
-    table.rows[0].cells[0].paragraphs[0].add_run('Activity No. ' + act_no).bold = True
+    table.rows[0].cells[0].paragraphs[0].add_run('Activity No. ' + str(act_no)).bold = True
     table.rows[0].cells[0].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     table.rows[1].cells[0].paragraphs[0].add_run(lab_title).bold = True
     table.rows[1].cells[0].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER

@@ -6,6 +6,7 @@
 
 {% block head %}
 {% endblock %}
+
 {% block previous %}
   <a href=".." class="active"><b>LAGO</b></a>
 {% endblock %}
@@ -24,8 +25,8 @@
           <button class="btnwarning my-4" type="submit">Submit</button>
     </form>
 
-    <!--Django Model-->
-    {% comment %} <h2 class="my-4">Laboratory Manuals</h2>
+    {% comment %} <!--Django Model-->
+    <h2 class="my-4">Laboratory Manuals</h2>
     <div class="row">
       {% for m in manual %}
       <div class="col-lg-4 col-md-6 col-sm-12 pb-4">
