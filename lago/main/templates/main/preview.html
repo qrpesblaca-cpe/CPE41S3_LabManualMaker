@@ -15,22 +15,22 @@
     <div class = "container">
         <div class = "row">
             <p><h1 style="text-align:center; font-size:30px;font-family:'Inter', sans-serif; margin-bottom:0" ><b>Activity No. {{ object.act_no }}</b></h1></p>
-            <h1 style="text-align:center; font-size:22px;font-family:'Inter', sans-serif;" ><b>{{ lab.lab_title }}</b></h1>
+            <h1 style="text-align:center; font-size:20px;font-family:'Inter', sans-serif;" ><b>{{ object.lab_title }}</b></h1>
             <div class="col">
 
                 <div id = "heading", name = "heading" >
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Code:</b> {{ object.course_code }}</h1>
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Title:</b> {{ object.lab_title }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Code:</b> {{ object.course_code }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Title:</b> {{ object.lab_title }}</h1>
                 </div>
 
                 <div id = "content", name = "content" >
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Objective:<br></b> {{ object.objective }}</h1>
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Intended Learning Outcome(s):<br></b> {{ object.ilos }}</h1>
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Discussion:<br></b> {{ object.discussion }}</h1>
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Resources:<br></b> {{ object.res }}</h1>
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Procedure:<br></b> {{ object.procedures|safe }}</h1>
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Supplementary Activity:<br></b> {{ object.supplementary }}</h1>
-                    <h1 style="text-align:justify; font-size:22px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Questions:<br></b> {{ object.questions }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Objective:<br></b> {{ object.objective }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Intended Learning Outcome(s):<br></b> {{ object.ilos }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Discussion:<br></b> {{ object.discussion }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Resources:<br></b> {{ object.res }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Procedure:<br></b> {{ object.procedures|safe }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Supplementary Activity:<br></b> {{ object.supplementary }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Questions:<br></b> {{ object.questions }}</h1>
                 </div>
                 
             </div>
@@ -38,9 +38,9 @@
 
         <br><br><br>
         <div class="center">
-            <button class="btn btn-warning btn-md" type="button" style="font-size:27px" onclick = "location.href='./update'">Edit</button>  
-            <button class="btn btn-success btn-md" type="button" style="font-size:27px" onclick = "location.href='./download/'">Download</button> 
-            <button class="btn btn-danger btn-md" type="button" style="font-size:27px" onclick="document.getElementById('id02').style.display='block'">Delete</button> 
+            <button class="btn btn-warning btn-md" type="button" style="font-size:22px" onclick = "location.href='./update'">Edit</button>  
+            <button class="btn btn-success btn-md" type="button" style="font-size:22px" onclick = "location.href='./download/'">Download</button> 
+            <button class="btn btn-danger btn-md" type="button" style="font-size:22px" onclick="document.getElementById('id02').style.display='block'">Delete</button> 
         </div>
         <br><br>
      </div>

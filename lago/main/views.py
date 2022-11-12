@@ -37,6 +37,7 @@ def update(request, pk):
     form = LabManualForm(request.POST or None,instance=lab)
     if form.is_valid():
         form.save()
+        messages.success(request,"Laboratory manual updated successfully!", extra_tags='invalid')
         return redirect('/home/view/')
     return render(request, 'main/update.html',{'form':form})
 
@@ -220,4 +221,5 @@ def getLab(id):
 # -----------------------------
 def deleteLab(request,id):
     labmanual.objects.filter(id=id).delete()
+    messages.success(request,"Successfully deleted!", extra_tags='invalid')
     return redirect("/home/view/")
