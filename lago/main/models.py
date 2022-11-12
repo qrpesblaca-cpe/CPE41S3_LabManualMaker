@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
 
@@ -6,6 +8,7 @@ from ckeditor.fields import RichTextField
 # ---------------------------
 class labmanual(models.Model):
     id = models.AutoField(primary_key=True)
+    date_created = models.DateTimeField(default=timezone.now)
     act_no = models.IntegerField()
     lab_title = models.CharField(max_length=50)
     course_code = models.CharField(max_length=50)

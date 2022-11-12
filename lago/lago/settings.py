@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Log the user out when the browser is closed.
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
+
 
 # Application definition
 

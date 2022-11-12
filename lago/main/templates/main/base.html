@@ -12,7 +12,18 @@
             background-color: #fec007;
         }
 
-        /* Add a color to the delete button */
+        /* Add a color to the danger button */
+        .btndanger {
+            background-color: #df4754;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .btndanger:hover{
+            background-color: #bb2c3a;
+        }
+
+        /* Add a color to the warning button */
         .btnwarning {
             background-color: #fdc51d;
             border-radius: 5px;
@@ -323,7 +334,7 @@
         <!--Modal for successful and unsuccessful manual creation-->
         {% if messages %}
             {% for message in messages %}
-                <div  class="alert {% if message.tags %} {{message.tags}} {% endif %}" id="message_container" style="width:5000px">   
+                <div  class="alert {% if message.tags %} {{message.tags}} {% endif %}" id="message_container" style="position: absolute;width:5000px">   
                     {{message}} 
                 </div> 
             {% endfor %}
@@ -340,7 +351,7 @@
     <!--End Head-->
 
     <!--Body-->
-    <body>
+    <body style="background-color: #ede8e0;">
         {% block body %}
         {% endblock %}
         <!--sign out modal-->
@@ -358,7 +369,21 @@
                 </div>
             </form>
         </div>
-        <body style="background-color: #ede8e0;">
+        
+        <div id="id02" class="modal">
+            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal"></span>
+            <form class="modal-content border-0" action="./delete">
+                <div class="container_signout">
+                <h1>Delete</h1>
+                <p>Are you sure you want to delete?</p>
+                
+                <div class="clearfix">
+                    <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+                    <button onclick = "location.href='./delete'" class=btndanger>Delete </button>
+                </div>
+                </div>
+            </form>
+        </div>
     </body>
     <!--End Body-->
     
@@ -388,11 +413,13 @@
     <script>
         // Get the modal
         var modal = document.getElementById('id01');
+        var modal2 = document.getElementById('id02');
         
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-          if (event.target == modal) {
+          if (event.target == modal || event.target == modal2) {
             modal.style.display = "none";
+            modal2.style.display = "none";
           }
         }
     </script>

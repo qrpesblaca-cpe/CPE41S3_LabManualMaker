@@ -18,14 +18,14 @@
     {% for m in labmanual_list %}
     <div class="col-lg-2 col-md-6 col-sm-12 pb-4">
       <div class="card h-100 p-4">
-        <a href="{% url 'post-detail' m.id %}" class="btnwarning" style="text-align: center;text-decoration:none;color:black">open</a>
+        <a href="{% url 'preview' m.id %}" class="btnwarning" style="text-align: center;text-decoration:none;color:black">open</a>
         <h4>{{m.lab_title}}</h4>
         <p class="text-muted">{{m.course_code}} | Activity No.{{m.act_no}}</p>
       </div>
     </div>
 
     {% empty %}
-    <p>No laboratory manual added.</p>
+    <p style="text-align:center;font-size:18px">No laboratory manual added.</p>
     {% endfor %}
     
   </div>

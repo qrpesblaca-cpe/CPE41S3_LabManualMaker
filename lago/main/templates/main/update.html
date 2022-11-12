@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+  Update Lab Manual | LAGO
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block previous %}
+  <a href=".." class="active"><b>LAGO</b></a>
+{% endblock %}
+
+{% block body %}
+{% load crispy_forms_tags %} 
+<div class="container">
+  <h2 class="my-4">Update Laboratory Manual</h2>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form|crispy }}
+    <button class="btnwarning my-4" type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

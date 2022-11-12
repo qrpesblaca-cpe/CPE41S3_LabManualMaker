@@ -9,11 +9,36 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.safestring import SafeString
 from django.utils.html import strip_tags
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, UpdateView
 from docx import *
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from io import BytesIO
+
+# View existing lab manuals
+# -----------------------------
+class LabListView(ListView):
+    model = labmanual
+    labmanual_list = labmanual.objects.all()
+    template_name = 'main/view.html'
+    context_object_name: 'labmanual_list'
+    ordering = ['-date_created']
+
+# Preview of lab manuals
+# -----------------------------
+class LabDetailView(DetailView):
+    model = labmanual
+    template_name = 'main/preview.html'
+
+# Update lab manuals
+# -----------------------------
+def update(request, pk):
+    lab = labmanual.objects.get(id=pk)
+    form = LabManualForm(request.POST or None,instance=lab)
+    if form.is_valid():
+        form.save()
+        return redirect('/home/view/')
+    return render(request, 'main/update.html',{'form':form})
 
 # Requires user to sign up 
 # before accessing /home
@@ -33,25 +58,10 @@ def insertlab(request):
 		if labmanual_form.is_valid():
 			labmanual_form.save()
 			messages.success(request, 'Laboratory manual successfully created!')
-		return redirect("insertlab")
+		return redirect('/home/view/')
 	labmanual_form = LabManualForm()
 	manual = labmanual.objects.all()
 	return render(request=request, template_name="main/insertlab.html", context={'labmanual_form':labmanual_form, 'manual':manual})
-
-# View existing lab manuals
-# -----------------------------
-class PostListView(ListView):
-    model = labmanual
-    labmanual_list = labmanual.objects.all()
-    template_name = 'main/view.html'
-    context_object_name: 'labmanual_list'
-    #ordering = ['course_code']
-
-# Preview of lab manuals
-# -----------------------------
-class PostDetailView(DetailView):
-    model = labmanual
-    template_name = 'main/preview.html'
     
 # Settings
 # --------------------------
@@ -107,8 +117,8 @@ def signout(request):
 
 # Download lab manual template
 # ---------------------------
-def downloadTemp(request, Uid):
-    act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = getLab(Uid)
+def downloadTemp(request, id):
+    act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = getLab(id)
 
     # Create document
     # -----------------------------
@@ -191,8 +201,8 @@ def downloadTemp(request, Uid):
 
 # Fetch data from the database        
 # -----------------------------
-def getLab(Uid):
-    lab_specific = labmanual.objects.all().filter(id=Uid)
+def getLab(id):
+    lab_specific = labmanual.objects.all().filter(id=id)
     for lab in lab_specific:
         act_no = lab.act_no
         lab_title = lab.lab_title
@@ -208,6 +218,6 @@ def getLab(Uid):
 
 # Delete data from the database
 # -----------------------------
-def deleteLab(request,Uid):
-    labmanual.objects.filter(id=Uid).delete()
+def deleteLab(request,id):
+    labmanual.objects.filter(id=id).delete()
     return redirect("/home/view/")

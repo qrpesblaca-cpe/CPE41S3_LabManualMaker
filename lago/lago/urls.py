@@ -26,7 +26,7 @@ urlpatterns = [
     path('', include("main.urls")),
     path('home/', m.home, name="home"),
     path('admin/', admin.site.urls),
-    path('home/view/<int:Uid>/download/', m.downloadTemp, name="downloadTemp"),
-    path('home/view/<int:Uid>/delete/', m.deleteLab, name="deleteLab"),
+    path('home/view/<int:id>/download/', m.downloadTemp, name="downloadTemp"),
+    path('home/view/<int:id>/delete/', m.deleteLab, name="deleteLab"),
     path('change-password/', auth_views.PasswordChangeView.as_view()),
 ]
