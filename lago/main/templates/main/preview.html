@@ -38,9 +38,13 @@
 
         <br><br><br>
         <div class="center">
+            {% if request.user.id == object.author_id %}
             <button class="btn btn-warning btn-md" type="button" style="font-size:22px" onclick = "location.href='./update'">Edit</button>  
             <button class="btn btn-success btn-md" type="button" style="font-size:22px" onclick = "location.href='./download/'">Download</button> 
             <button class="btn btn-danger btn-md" type="button" style="font-size:22px" onclick="document.getElementById('id02').style.display='block'">Delete</button> 
+            {% else %}
+            <button class="btn btn-success btn-md" type="button" style="font-size:22px" onclick = "location.href='./download/'">Download</button>
+            {% endif %}
         </div>
         <br><br>
      </div>

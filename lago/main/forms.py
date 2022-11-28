@@ -112,6 +112,7 @@ class LabManualForm(forms.ModelForm):
 		fields = (
 			'id',
 			'act_no',
+			'author',
 			'lab_title',
 			'course_code',
 			'objective',

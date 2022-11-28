@@ -20,6 +20,7 @@
     <h2 class="my-4">Add a new Laboratory Manual</h2>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
+      {{ manual.author }}
       {{ labmanual_form.media }}
       {{ labmanual_form|crispy }}
       <button class="btnwarning my-4" type="submit">Submit</button>

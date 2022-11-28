@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.safestring import SafeString
 from django.utils.html import strip_tags
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView
 from docx import *
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
@@ -28,10 +28,13 @@ class LabListView(ListView):
 # -----------------------------
 class LabDetailView(DetailView):
     model = labmanual
+    labmanual_list = labmanual.objects.all()
+    context_object_name: 'labmanual_list'
     template_name = 'main/preview.html'
 
 # Update lab manuals
 # -----------------------------
+@login_required(login_url='/')
 def update(request, pk):
     lab = labmanual.objects.get(id=pk)
     form = LabManualForm(request.POST or None,instance=lab)
@@ -62,7 +65,7 @@ def insertlab(request):
 		return redirect('/home/view/')
 	labmanual_form = LabManualForm()
 	manual = labmanual.objects.all()
-	return render(request=request, template_name="main/insertlab.html", context={'labmanual_form':labmanual_form, 'manual':manual})
+	return render(request=request, template_name="main/insertlab.html", context={'labmanual_form':labmanual_form})
     
 # Settings
 # --------------------------
@@ -118,6 +121,7 @@ def signout(request):
 
 # Download lab manual template
 # ---------------------------
+@login_required(login_url='/')
 def downloadTemp(request, id):
     act_no, lab_title, course_code, objectives, ilos, discussion, res, procedures, questions, supplementary = getLab(id)
 
