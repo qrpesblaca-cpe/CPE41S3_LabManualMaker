@@ -92,7 +92,7 @@ class RegistrationForm(UserCreationForm):
 			user.save()
 		return user
 
-# Form for user lab manual
+# Form for lab manual
 # creation
 # ---------------------------
 class LabManualForm(forms.ModelForm):
@@ -112,7 +112,6 @@ class LabManualForm(forms.ModelForm):
 		fields = (
 			'id',
 			'act_no',
-			'author',
 			'lab_title',
 			'course_code',
 			'objective',

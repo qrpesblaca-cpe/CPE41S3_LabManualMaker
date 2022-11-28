@@ -60,6 +60,7 @@ def insertlab(request):
 	if request.method == "POST":
 		labmanual_form = LabManualForm(request.POST, request.FILES)
 		if labmanual_form.is_valid():
+			labmanual_form.instance.author = request.user
 			labmanual_form.save()
 			messages.success(request, 'Laboratory manual successfully created!')
 		return redirect('/home/view/')

@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 # ---------------------------
 class labmanual(models.Model):
     id = models.AutoField(primary_key=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     act_no = models.IntegerField()
     lab_title = models.CharField(max_length=50)
