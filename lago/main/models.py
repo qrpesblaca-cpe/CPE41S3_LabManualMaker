@@ -13,6 +13,7 @@ class labmanual(models.Model):
     act_no = models.IntegerField()
     lab_title = models.CharField(max_length=50)
     course_code = models.CharField(max_length=50)
+    course_title = models.CharField(max_length=100)
     objective = models.TextField()
     ilos = models.TextField()
     discussion = models.TextField()
@@ -20,6 +21,16 @@ class labmanual(models.Model):
     procedures = RichTextField(blank=True, null=True)
     questions = models.TextField()
     supplementary = models.TextField()
+    image_1 = models.ImageField(upload_to='images/')
+    image_2 = models.ImageField(upload_to='images/')
 
     def __str__(self):
         return self.lab_title
+
+class course(models.Model):
+    id = models.AutoField(primary_key=True)
+    code = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.code

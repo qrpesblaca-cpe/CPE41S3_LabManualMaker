@@ -20,7 +20,7 @@
 
                 <div id = "heading", name = "heading" >
                     <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Code:</b> {{ object.course_code }}</h1>
-                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Title:</b> {{ object.lab_title }}</h1>
+                    <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Course Title:</b> {{ object.course_title }}</h1>
                 </div>
 
                 <div id = "content", name = "content" >
@@ -29,6 +29,7 @@
                     <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Discussion:<br></b> {{ object.discussion }}</h1>
                     <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Resources:<br></b> {{ object.res }}</h1>
                     <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Procedure:<br></b> {{ object.procedures|safe }}</h1>
+                    <img src="{{ object.image_1.url }}"></image><img src="{{ object.image_2.url }}"></image>
                     <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Supplementary Activity:<br></b> {{ object.supplementary }}</h1>
                     <h1 style="text-align:justify; font-size:20px;font-family:'Inter', sans-serif;margin-bottom:10;" ><b>Questions:<br></b> {{ object.questions }}</h1>
                 </div>

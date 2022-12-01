@@ -1,15 +1,30 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-    Settings | LAGO
+  Add Course | LAGO
 {% endblock %}
 
 {% block head %}
 {% endblock %}
+
 {% block previous %}
-    <a href=".." class="active"><b>LAGO</b></a>
+  <a href=".." class="active"><b>LAGO</b></a>
 {% endblock %}
 
 {% block body %}
-    <h1>Settings</h1>
+  {% load crispy_forms_tags %}  
+          
+  <div class="container">
+
+    <!--Django Model Form-->
+    <h2 class="my-4">Add a new Course</h2>
+    <p style="color:red; font-style: italic"><b>Keep in mind:</b> This is a one time process, you cannot delete a course!</p>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ course_form.media }}
+      {{ course_form|crispy }}
+      <button class="btnwarning my-4" type="submit">Submit</button>
+    </form>
+
+  </div>
 {% endblock %}
