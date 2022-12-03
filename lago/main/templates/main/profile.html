@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+  Profile | LAGO
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block previous %}
+  <a href=".." class="active"><b>LAGO</b></a>
+{% endblock %}
+
+{% block body %}
+<!-- Begin Page Content -->
+<div class="container">
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h2 class="my-4">Profile</h2>        
+
+    <!-- Main Content Here -->
+    <div class="row">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-3 my-5">
+        <img src="{{user.profile.profile_image.url}}" class="rounded float-right" height="300px" width="300px">
+      </div>
+      <div class="card o-hidden border-0 shadow-lg my-5 col-lg-7">
+        <div class="card-body">
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <p><strong>Username: </strong> {{ user.username }} </p>
+            <p><strong>Email: </strong> {{ user.email }} </p>
+            <p><strong>First Name: </strong> {{ user.first_name }}</p>
+            <p><strong>Last Name: </strong>{{ user.last_name }}</p>
+            <a href="{% url 'home' %}" class="btn btn-long btn-warning shadow-sm">Update Profile</a>
+            <a href="{% url 'change_password' %}" class="btn btn-long btn-warning shadow-sm">Change Password</a>
+        </div>
+      </div>
+    </div>
+    
+    
+</div>
+</div>
+{% endblock %}

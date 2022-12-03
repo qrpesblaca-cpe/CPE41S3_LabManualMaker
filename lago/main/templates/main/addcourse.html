@@ -23,11 +23,12 @@
       {% csrf_token %}
       {{ course_code_form.media }}
       {{ course_code_form|crispy }}
-      
+
       {{ course_title_form.media }}
       {{ course_title_form|crispy }}
       <button class="btnwarning my-4" type="submit">Submit</button>
     </form>
+
 
   </div>
 {% endblock %}

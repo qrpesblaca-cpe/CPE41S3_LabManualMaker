@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+  Change Password | LAGO
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block previous %}
+  <a href=".." class="active"><b>LAGO</b></a>
+{% endblock %}
+
+{% block body %}
+  {% load crispy_forms_tags %}  
+          
+  <div class="container">
+
+    <!--Django Model Form-->
+    <h2 class="my-4">Change Password</h2> 
+    <div class="container py-5">
+        
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">  
+                
+                <form method="POST" class="loginfrm">
+                    {% csrf_token %}
+                    {{ form |crispy }}
+                    <div class="container">&nbsp;   
+                        <div class="center">            
+                    <button class="btn btn-long btn-warning" type="submit" style="text-align:center">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+	</div>
+
+  </div>
+{% endblock %}

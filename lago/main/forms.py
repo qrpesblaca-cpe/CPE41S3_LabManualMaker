@@ -1,7 +1,7 @@
 from django import forms
 from .models import labmanual, course_code_db, course_title_db
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 
 # Create your forms here.
@@ -37,8 +37,7 @@ class RegistrationForm(UserCreationForm):
 			user.save()
 		return user
 
-# Form for lab manual
-# creation
+# Form for creating lab manual
 # ---------------------------
 class LabManualForm(forms.ModelForm):
 	course_code = forms.ModelChoiceField(label='Course Code', queryset=course_code_db.objects.all())

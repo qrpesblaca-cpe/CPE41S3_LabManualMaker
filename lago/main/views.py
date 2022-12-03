@@ -1,18 +1,17 @@
-from .models import labmanual, course_code_db, course_title_db
 from .forms import RegistrationForm, LabManualForm, CourseCodeForm, CourseTitleForm
-from bs4 import BeautifulSoup as soup
-from django.shortcuts import  render, redirect
-from django.http import HttpResponse
-from django.contrib.auth import login,logout, authenticate
+from .models import labmanual, course_code_db, course_title_db
 from django.contrib import messages
+from django.contrib.auth import login,logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
-from django.utils.safestring import SafeString
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.http import HttpResponse
+from django.shortcuts import  render, redirect
 from django.utils.html import strip_tags
+from django.utils.safestring import SafeString
 from django.views.generic import ListView, DetailView
 from docx import *
-from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.shared import Pt
 from htmldocx import HtmlToDocx
 from io import BytesIO
 
@@ -78,6 +77,14 @@ def insertlab(request):
 def about(response):
     return render(response, "main/about.html", {})
 
+# user Profile
+# --------------------------
+@login_required(login_url='/')
+def userProfile(response):
+    return render(response, "main/profile.html", {})
+
+# Add new course
+# --------------------------
 def addCourse(request):
     if request.method == "POST":
         course_code_form = CourseCodeForm(request.POST)
@@ -105,6 +112,26 @@ def signup(request):
 		messages.error(request, "Error: User Registration failed.", extra_tags='invalid')
 	form = RegistrationForm()
 	return render (request=request, template_name="main/signup.html", context={"register_form":form})
+
+# Change Password
+# --------------------------
+@login_required(login_url='/')
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect("home")
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'main/changepass.html', {
+        'form': form
+    })
+
 
 # User sign in
 # ---------------------------
@@ -182,7 +209,7 @@ def downloadTemp(request, id):
     table.rows[2].cells[1].paragraphs[0].add_run('Program: ').bold = True
     table.rows[3].cells[1].paragraphs[0].add_run('Date Performed: ').bold = True
     table.rows[4].cells[1].paragraphs[0].add_run('Date Submitted: ').bold = True
-    table.rows[5].cells[1].paragraphs[0].add_run('Instructor: ' + request.user.first_name + ' ' + request.user.last_name + '\n\n').bold = True
+    table.rows[5].cells[1].paragraphs[0].add_run('Instructor: Engr.' + request.user.first_name + ' ' + request.user.last_name + '\n\n').bold = True
 
     table.rows[6].cells[0].paragraphs[0].add_run('1. Objective: ').bold = True
     table.rows[7].cells[0].paragraphs[0].add_run(objectives).bold = False
