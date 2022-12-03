@@ -1,5 +1,5 @@
 from django import forms
-from .models import labmanual, course
+from .models import labmanual, course_code_db, course_title_db
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -41,11 +41,10 @@ class RegistrationForm(UserCreationForm):
 # creation
 # ---------------------------
 class LabManualForm(forms.ModelForm):
-	course_code = forms.ModelChoiceField(label='Course Code', queryset=course.objects.all())
-	course_title = forms.CharField(label='Course Code')
+	course_code = forms.ModelChoiceField(label='Course Code', queryset=course_code_db.objects.all())
+	course_title = forms.ModelChoiceField(label='Course Title', queryset=course_title_db.objects.all())
 	supplementary = forms.CharField(required=False)
 	questions = forms.CharField(required=False)
-
 	class Meta:
 		model = labmanual
 		widgets = {
@@ -66,8 +65,6 @@ class LabManualForm(forms.ModelForm):
 			'discussion',
 			'res',
 			'procedures',
-			'image_1',
-			'image_2',
 			'questions',
 			'supplementary',
 		)
@@ -86,16 +83,30 @@ class LabManualForm(forms.ModelForm):
 		self.fields['questions'].label = "Questions:"
 		self.fields['supplementary'].label = "Supplementary Activity:"
 
-class CourseForm(forms.ModelForm):
+# Form for adding course code
+# ---------------------------
+class CourseCodeForm(forms.ModelForm):
 	class Meta:
-		model = course
+		model = course_code_db
 		fields = (
-			'id',
-			'code',
-			'title',
-		)
-
+            'id',
+            'code',
+        )
+	
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['code'].label = "Course Code"
+
+# Form for course title
+# ---------------------------
+class CourseTitleForm(forms.ModelForm):
+	class Meta:
+		model = course_title_db
+		fields = (
+            'id',
+            'title',
+        )
+	
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
 		self.fields['title'].label = "Course Title"

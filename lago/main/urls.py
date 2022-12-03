@@ -12,7 +12,7 @@ urlpatterns = [
     path("home/", views.home, name="home"),
     path("home/about/", views.about, name="about"),
     path("home/insert/", views.insertlab, name="insertlab"),
-    path("home/settings/", views.settings, name="settings"),
+    path("home/add_course/", views.addCourse, name="addCourse"),
     path("home/view/", login_required(labListView.as_view(),login_url='/'), name="view"),
     path("home/view/<int:pk>/", login_required(labDetailView.as_view(), login_url='/'), name="preview"),
     path("home/view/<int:pk>/update", views.update, name="update"),

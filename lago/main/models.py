@@ -27,10 +27,16 @@ class labmanual(models.Model):
     def __str__(self):
         return self.lab_title
 
-class course(models.Model):
+class course_code_db(models.Model):
     id = models.AutoField(primary_key=True)
     code = models.CharField(max_length=50)
-    title = models.CharField(max_length=100)
 
     def __str__(self):
         return self.code
+
+class course_title_db(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title

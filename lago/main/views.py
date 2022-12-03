@@ -1,5 +1,5 @@
-from .models import labmanual, course
-from .forms import RegistrationForm, LabManualForm, CourseForm
+from .models import labmanual, course_code_db, course_title_db
+from .forms import RegistrationForm, LabManualForm, CourseCodeForm, CourseTitleForm
 from bs4 import BeautifulSoup as soup
 from django.shortcuts import  render, redirect
 from django.http import HttpResponse
@@ -52,42 +52,45 @@ def update(request, pk):
 def home(response):
     return render(response, "main/home.html", {})
 
-# Function for inserting data 
+# Inserts data 
 # from forms into the labmanual 
 # model
 # -----------------------------
 @login_required(login_url='/')
 def insertlab(request):
-	if request.method == "POST":
-		labmanual_form = LabManualForm(request.POST, request.FILES)
-		if labmanual_form.is_valid():
-			labmanual_form.instance.author = request.user
-			labmanual_form.save()
-			messages.success(request, 'Laboratory manual successfully created!')
-		return redirect('/home/view/')
-	labmanual_form = LabManualForm()
-	courses = course.objects.all()
-	return render(request=request, template_name="main/insertlab.html", context={'labmanual_form':labmanual_form,'courses':courses})
-    
-# Add Courses
-# --------------------------
-@login_required(login_url='/')
-def settings(request):
     if request.method == "POST":
-        course_form = CourseForm(request.POST, request.FILES)
-        if course_form.is_valid():
-            course_form.save()
-            messages.success(request, 'Course successfully added!')
-        return redirect('/home/view/')
-    course_form = CourseForm()
-    return render(request=request, template_name="main/settings.html", context={'course_form':course_form})
-
-
+        labmanual_form = LabManualForm(request.POST, request.FILES)
+        if labmanual_form.is_valid():
+            labmanual_form.instance.author = request.user
+            labmanual_form.save()
+            messages.success(request, 'Laboratory manual successfully created!')
+            return redirect('/home/view/')
+        else:
+            messages.error(request, "Error: Laboratory manual creation failed.", extra_tags='invalid')
+            return redirect('/home/')
+    labmanual_form = LabManualForm()
+    course_coded = course_code_db.objects.all()
+    return render(request=request, template_name="main/insertlab.html", context={'labmanual_form':labmanual_form,'course_code_db':course_coded})
+    
 # About the team
 # --------------------------
 @login_required(login_url='/')
 def about(response):
     return render(response, "main/about.html", {})
+
+def addCourse(request):
+    if request.method == "POST":
+        course_code_form = CourseCodeForm(request.POST)
+        course_title_form = CourseTitleForm(request.POST)
+        if course_code_form.is_valid():
+            course_code_form.save()
+            if course_title_form.is_valid():
+                course_title_form.save()
+                messages.success(request, 'Course successfully added!')
+        return redirect('/home/view/')
+    course_code_form = CourseCodeForm()
+    course_title_form = CourseTitleForm()
+    return render(request=request, template_name="main/addcourse.html", context={'course_code_form':course_code_form, 'course_title_form':course_title_form})
 
 # User creation
 # -----------------------------
@@ -139,7 +142,7 @@ def downloadTemp(request, id):
     # Create document
     # -----------------------------
     document = Document()
-    docx_title = course_code + "- Activity No." + str(act_no) + ".docx"
+    docx_title = course_code + " - Activity No." + str(act_no) + ".docx"
     core_properties = document.core_properties
 
     # Insert author & comment
@@ -192,9 +195,9 @@ def downloadTemp(request, id):
     table.rows[13].cells[0].paragraphs[0].add_run(res).bold = False
     table.rows[14].cells[0].paragraphs[0].add_run('5. Procedures: ').bold = True
     table.rows[16].cells[0].paragraphs[0].add_run('6. Results: ').bold = True
-    table.rows[17].cells[0].paragraphs[0].add_run(image_2.url)
+    # table.rows[17].cells[0].paragraphs[0].add_run(image_2.url)
     table.rows[18].cells[0].paragraphs[0].add_run('7. Observations: ').bold = True
-    table.rows[19].cells[0].paragraphs[0].add_run(image_1.url)
+    # table.rows[19].cells[0].paragraphs[0].add_run(image_1.url)
     table.rows[20].cells[0].paragraphs[0].add_run('8. Questions: ').bold = True
     table.rows[21].cells[0].paragraphs[0].add_run(questions).bold = False
     table.rows[22].cells[0].paragraphs[0].add_run('9. Conclusions: ').bold = True
@@ -240,15 +243,6 @@ def getLab(id):
         image_1 = lab.image_1
         image_2 = lab.image_2
         return act_no, lab_title, course_code, course_title, objectives, ilos, discussion, res, procedures, questions, supplementary, image_1, image_2
-
-# Fetch course data from the database        
-# -----------------------------
-def getCourse(id):
-    course_specific = course.objects.all().filter(id=id)
-    for c in course_specific:
-        course_code = c.code
-        course_title = c.title
-        return course_code, course_title
 
 # Delete data from the database
 # -----------------------------

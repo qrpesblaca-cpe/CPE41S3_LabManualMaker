@@ -21,8 +21,11 @@
     <p style="color:red; font-style: italic"><b>Keep in mind:</b> This is a one time process, you cannot delete a course!</p>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ course_form.media }}
-      {{ course_form|crispy }}
+      {{ course_code_form.media }}
+      {{ course_code_form|crispy }}
+      
+      {{ course_title_form.media }}
+      {{ course_title_form|crispy }}
       <button class="btnwarning my-4" type="submit">Submit</button>
     </form>
 
