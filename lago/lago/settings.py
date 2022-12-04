@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=o2_jvbpb)cqx9du*lx8hg1d_0#8!l%@78&muqh8a5xl$*kkpc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Log the user out when the browser is closed.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
