@@ -85,6 +85,7 @@ def userProfile(response):
 
 # Add new course
 # --------------------------
+@login_required(login_url='/')
 def addCourse(request):
     if request.method == "POST":
         course_code_form = CourseCodeForm(request.POST)
@@ -92,6 +93,7 @@ def addCourse(request):
         if course_code_form.is_valid():
             course_code_form.save()
             if course_title_form.is_valid():
+                course_title_form.instance.code = course_code_db.objects.latest('id')
                 course_title_form.save()
                 messages.success(request, 'Course successfully added!')
         return redirect('/home/view/')

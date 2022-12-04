@@ -21,14 +21,37 @@ class RegistrationForm(UserCreationForm):
 			"password1", 
 			"password2"
 		)
+
 		help_texts = { 
 			'username': None, 
 		}
+
+	def clean_email(self):
+		data = self.cleaned_data['email']
+		if "@tip.edu.ph" not in data:  
+			raise forms.ValidationError("Must be a gmail address")
+
+		for instance in User.objects.all():
+			if instance.email == data:
+				raise forms.ValidationError("Email Address Used. Please Use Another Email Address")		
+		return data
+
+	# Uncomment when specific error can be displayed
+	# ---------------------------
+	# def clean_user(self):
+	# 	userName = self.cleaned_data.get('username')
+	# 	if (userName == ""):
+	# 		raise forms.ValidationError("This field cannot be left blank")
+			
+	# 	for instance in User.objects.all():
+	# 		if instance.userName == userName:
+	# 			raise forms.ValidationError("Username Used. Please Use Another Username")
 		
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.fields['password1'].help_text = '<p style="color:white">Must be 6 characters and above.</p>'
-		self.fields['password2'].help_text = None
+		self.fields['email'].help_text = '<p style="color:white">Please use T.I.P. email.</p>'
+		self.fields['password1'].help_text = '<p style="color:white">Must be 8 characters and above.</p>'
+		self.fields['password2'].help_text = '<p style="color:white">Enter the same password as before, for verification.</p>'
 
 	def save(self, commit=True):
 		user = super(RegistrationForm, self).save(commit=False)

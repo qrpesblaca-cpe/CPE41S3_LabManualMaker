@@ -36,6 +36,7 @@ class course_code_db(models.Model):
 
 class course_title_db(models.Model):
     id = models.AutoField(primary_key=True)
+    code = models.ForeignKey(course_code_db, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
 
     def __str__(self):
