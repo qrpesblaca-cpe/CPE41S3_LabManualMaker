@@ -14,6 +14,7 @@ urlpatterns = [
     path("home/insert/", views.insertlab, name="insertlab"),
     path("home/add_course/", views.addCourse, name="addCourse"),
     path("home/profile/", views.userProfile, name="userProfle"),
+    path("home/profile/update_profile/", views.update_profile, name="update_profile"),
     path("home/profile/change_password/", views.change_password, name="change_password"),
     path("home/view/", login_required(labListView.as_view(),login_url='/'), name="view"),
     path("home/view/<int:pk>/", login_required(labDetailView.as_view(), login_url='/'), name="preview"),

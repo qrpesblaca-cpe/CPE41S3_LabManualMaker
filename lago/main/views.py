@@ -1,4 +1,5 @@
-from .forms import RegistrationForm, LabManualForm, CourseCodeForm, CourseTitleForm
+import base64, os, re, requests, shutil
+from .forms import RegistrationForm, LabManualForm, CourseCodeForm, CourseTitleForm, UpdateProfileForm
 from .models import labmanual, course_code_db, course_title_db
 from django.contrib import messages
 from django.contrib.auth import login,logout, authenticate, update_session_auth_hash
@@ -13,6 +14,7 @@ from docx import *
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
 from htmldocx import HtmlToDocx
+from PIL import Image
 from io import BytesIO
 
 # View existing lab manuals
@@ -113,7 +115,7 @@ def signup(request):
 			return redirect('/')
 		messages.error(request, "Error: User Registration failed.", extra_tags='invalid')
 	form = RegistrationForm()
-	return render (request=request, template_name="main/signup.html", context={"register_form":form})
+	return render(request, 'main/signup.html',{'register_form':form})
 
 # Change Password
 # --------------------------
@@ -134,6 +136,20 @@ def change_password(request):
         'form': form
     })
 
+# Update information
+# --------------------------
+@login_required(login_url='/')
+def update_profile(request):
+    form = UpdateProfileForm(request.POST or None, instance=request.user)
+    if form.is_valid():
+        form.save()
+        messages.success(request,"Profile updated successfully!", extra_tags='invalid')
+        return redirect('/home/view/')
+    else:
+        messages.error(request,"Error: Profile update failure!", extra_tags='invalid')
+        form = UpdateProfileForm(instance=request.user)
+        args = {'form':form}
+        return render(request, 'main/updateprofile.html',args)
 
 # User sign in
 # ---------------------------
@@ -181,13 +197,17 @@ def downloadTemp(request, id):
 
     # Create table
     # -----------------------------
-    table = document.add_table(rows=26, cols=2)
+    table = document.add_table(rows=27, cols=2)
     table.style = 'Table Grid'
     style = document.styles['Normal']
     font = style.font
     font.name = 'Arial Narrow'
     font.size = Pt(12)
     font.bold = False
+
+    downloadImage(procedures)
+
+    image_files = os.listdir('temp_images')
 
     # Merge specific rows
     # -----------------------------
@@ -211,7 +231,7 @@ def downloadTemp(request, id):
     table.rows[2].cells[1].paragraphs[0].add_run('Program: ').bold = True
     table.rows[3].cells[1].paragraphs[0].add_run('Date Performed: ').bold = True
     table.rows[4].cells[1].paragraphs[0].add_run('Date Submitted: ').bold = True
-    table.rows[5].cells[1].paragraphs[0].add_run('Instructor: Engr.' + request.user.first_name + ' ' + request.user.last_name + '\n\n').bold = True
+    table.rows[5].cells[1].paragraphs[0].add_run('Instructor: Engr. ' + request.user.first_name + ' ' + request.user.last_name + '\n\n').bold = True
 
     table.rows[6].cells[0].paragraphs[0].add_run('1. Objective: ').bold = True
     table.rows[7].cells[0].paragraphs[0].add_run(objectives).bold = False
@@ -223,18 +243,23 @@ def downloadTemp(request, id):
     table.rows[12].cells[0].paragraphs[0].add_run('4. Resources: ').bold = True
     table.rows[13].cells[0].paragraphs[0].add_run(res).bold = False
     table.rows[14].cells[0].paragraphs[0].add_run('5. Procedures: ').bold = True
-    table.rows[16].cells[0].paragraphs[0].add_run('6. Results: ').bold = True
+    table.rows[16].cells[0].paragraphs[0].alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    table.rows[17].cells[0].paragraphs[0].add_run('6. Results: ').bold = True
     # table.rows[17].cells[0].paragraphs[0].add_run(image_2.url)
-    table.rows[18].cells[0].paragraphs[0].add_run('7. Observations: ').bold = True
+    table.rows[19].cells[0].paragraphs[0].add_run('7. Observations: ').bold = True
     # table.rows[19].cells[0].paragraphs[0].add_run(image_1.url)
-    table.rows[20].cells[0].paragraphs[0].add_run('8. Questions: ').bold = True
-    table.rows[21].cells[0].paragraphs[0].add_run(questions).bold = False
-    table.rows[22].cells[0].paragraphs[0].add_run('9. Conclusions: ').bold = True
-    table.rows[24].cells[0].paragraphs[0].add_run('10. Supplementary Activity: ').bold = True
-    table.rows[25].cells[0].paragraphs[0].add_run(supplementary).bold = False
+    table.rows[21].cells[0].paragraphs[0].add_run('8. Questions: ').bold = True
+    table.rows[22].cells[0].paragraphs[0].add_run(questions).bold = False
+    table.rows[23].cells[0].paragraphs[0].add_run('9. Conclusions: ').bold = True
+    table.rows[25].cells[0].paragraphs[0].add_run('10. Supplementary Activity: ').bold = True
+    table.rows[26].cells[0].paragraphs[0].add_run(supplementary).bold = False
+    
+    for image_file in image_files:
+        table.rows[16].cells[0].paragraphs[0].add_run().add_picture('temp_images/' + image_file)
 
     # Parse HTML to Docx
     parser = HtmlToDocx()
+    procedures = re.sub(r'<img.*?>', '', procedures)
     html = procedures
     parser.add_html_to_cell(html, table.cell(0,30))
 
@@ -279,3 +304,29 @@ def deleteLab(request,id):
     labmanual.objects.filter(id=id).delete()
     messages.success(request,"Successfully deleted!", extra_tags='invalid')
     return redirect("/home/view/")
+
+
+def downloadImage(html):
+    shutil.rmtree('temp_images', ignore_errors=True)
+    img_tags = re.findall(r'<img.*?>', html)
+    img_urls = []
+    for img_tag in img_tags:
+        src_attr = re.search(r'src="(.*?)"', img_tag)
+        img_tag = img_tag[:-1] + ' width="100" height="100">'
+        if src_attr:
+            img_urls.append(src_attr.group(1))
+
+    temp_dir = 'temp_images'
+    if not os.path.exists(temp_dir):
+        os.mkdir(temp_dir)
+
+    for url in img_urls:
+        response = requests.get(url)
+        with open(os.path.join(temp_dir, os.path.basename(url)), 'wb') as f:
+            f.write(response.content)
+
+    for filename in os.listdir('temp_images'):
+        with Image.open(os.path.join('temp_images', filename)) as img:
+            img = img.resize((200, 200))
+            img.save(os.path.join('temp_images', filename))
+    

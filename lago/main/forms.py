@@ -1,16 +1,13 @@
 from django import forms
 from .models import labmanual, course_code_db, course_title_db
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 # Create your forms here.
 # Form for user registration
 # ---------------------------
-class RegistrationForm(UserCreationForm):
-	email = forms.EmailField(required=True)
-	
-
+class RegistrationForm(UserCreationForm):	
 	class Meta:
 		model = User
 		fields = (
@@ -29,7 +26,7 @@ class RegistrationForm(UserCreationForm):
 	def clean_email(self):
 		data = self.cleaned_data['email']
 		if "@tip.edu.ph" not in data:  
-			raise forms.ValidationError("Must be a gmail address")
+			raise forms.ValidationError("Must be a T.I.P email")
 
 		for instance in User.objects.all():
 			if instance.email == data:
@@ -132,3 +129,41 @@ class CourseTitleForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['title'].label = "Course Title"
+
+# Form for updating profile
+# ---------------------------
+class UpdateProfileForm(UserChangeForm):
+	class Meta:
+		model = User
+		fields = (
+			'username',
+			'first_name',
+			'last_name', 
+			'email',
+			'password'
+		)
+
+	def __init__(self, *args, **kwargs):
+		super(UpdateProfileForm, self).__init__(*args, **kwargs)
+		del self.fields['password']
+		self.fields['username'].help_text = None
+	
+	def clean_email(self):
+		data = self.cleaned_data['email']
+		if not data.endswith('@tip.edu.ph'):
+			raise forms.ValidationError("Must be a T.I.P. address")
+
+		for instance in User.objects.all():
+			if instance.email == data:
+				raise forms.ValidationError("Email Address Used. Please Use Another Email Address")		
+		return data
+	
+	def save(self, commit=True):
+		user = super(UpdateProfileForm, self).save(commit=False)
+		user.username = self.cleaned_data['username']
+		user.first_name = self.cleaned_data['first_name']
+		user.last_name = self.cleaned_data['last_name']
+		user.email = self.cleaned_data['email']
+		if commit:
+			user.save()
+		return user
